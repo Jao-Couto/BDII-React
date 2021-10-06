@@ -2,8 +2,8 @@ import React from "react";
 
 function App() {
   return (
-    <div>
-      <p>asa</p>
+    <div className="bg-gray-300">
+      <p>dadas</p>
     </div>
   );
 }
