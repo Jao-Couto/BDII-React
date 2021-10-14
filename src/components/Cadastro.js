@@ -42,8 +42,12 @@ export default function Cadastro(props){
     async function handleSubmitForm(e){
         e.preventDefault()
         let data = new FormData(e.target)
-        data.append('hor_entrad', range[0]*10000);
-        data.append('hor_saida', range[1]*10000);
+
+        if(props.type === 'medico'){
+            data.append('hor_entrad', range[0]*10000);
+            data.append('hor_saida', range[1]*10000);
+        }
+
         await axios.post(`http://localhost:5000/${url}`, data, {headers:{'content-type': 'multipart/form-data'}})
             .then(response => {
                 if(response.data === "1")
@@ -105,7 +109,7 @@ export default function Cadastro(props){
                                     </div>
                                     <div className='relative m-1 w-1/4'>
                                         <input id='carga_hor_semana' name='carga_hor_semana' type='text' className="p-2 rounded-sm w-full m-1 border border-gray-200" style={{height:'39px'}} value={carga_hor_semana} onChange={elem =>setCargaHRS(elem.target.value)} placeholder="8" required></input>
-                                        <span className='absolute top-1/4 right-1 text-gray-400'>hr de Carga Horária</span>
+                                        <span className='absolute top-1/4 right-1 text-gray-400'>hr de Carga Semanal</span>
                                     </div>
                                 </div>
                             </>);
@@ -114,6 +118,13 @@ export default function Cadastro(props){
 
         case 'atendente':
             title = 'Cadastro Atendente';
+            inputsPerType = (
+                <div className='relative m-1 w-1/2'>
+                    <input id='carga_hor_semana' name='carga_hor_semana' type='text' className="p-2 rounded-sm w-full m-1 border border-gray-200" style={{height:'39px'}} value={carga_hor_semana} onChange={elem =>setCargaHRS(elem.target.value)} placeholder="8" required></input>
+                    <span className='absolute top-1/4 right-1 text-gray-400'>hr de Carga Semanal</span>
+                </div>
+            );
+            url = 'atendentes/cadastrar';
             break;
 
         case 'paciente':
@@ -132,7 +143,7 @@ export default function Cadastro(props){
     }
 
     return(
-        <form className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5" onSubmit={handleSubmitForm} enctype="multipart/form-data">
+        <form className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5" onSubmit={handleSubmitForm} encType="multipart/form-data">
             <h1 className='text-start text-xl font-bold'>{title}</h1>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
