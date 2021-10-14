@@ -132,7 +132,7 @@ function App() {
         <div className="flex items-center justify-center h-full min-w-full bg-white">
           <Switch>
             <Route path="/signup">
-              <Cadastro type='paciente'></Cadastro>
+              <Cadastro type='medico'></Cadastro>
             </Route>
             <Route path="/login">
               <Login valida={setLogin} tipoUsuario={setIsMedico} />

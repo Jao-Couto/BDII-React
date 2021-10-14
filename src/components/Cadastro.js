@@ -1,11 +1,14 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import $ from 'jquery';
+import 'jquery-mask-plugin/dist/jquery.mask.min'; 
 
 export default function Cadastro(props){
 
     async function getCEPFromForm(cep){
-        if(cep.length === 8){
-            let response = await getAddressByCEP(cep);
+        if(cep.length === 9){
+            let response = await getAddressByCEP(cep.replace('-',''));
             if(!response.erro){
                 setBairro(response.bairro)
                 setCidade(response.localidade)
@@ -29,10 +32,21 @@ export default function Cadastro(props){
 
     useEffect(()=>{
         getPaises();
+        $('#cpf').mask('000.000.000-00', {reverse: true});
+        $('#cep').mask('00000-000');
+        
     }, [])
 
-    async function handleSubmitForm(){
-        let response = await fetch(`http://localhost:5000/`)
+    async function handleSubmitForm(e){
+        e.preventDefault()
+        let data = new FormData(e.target)
+        await fetch(`http://localhost:5000/${url}`, {
+            method: 'post', 
+            headers: {'Content-Type': 'multipart/form-data', 'Accept': 'multipart/form-data'},
+            body: JSON.stringify(data)})
+            .then(response => response.text())
+            .then(text => console.log(text))
+            .catch(err => console.log(err))
     }
 
     const [email, setEmail] = useState('');
@@ -43,7 +57,7 @@ export default function Cadastro(props){
     const [crm, setCRM] = useState('');
     const [spec, setSpec] = useState('');
     const [plano, setPlano] = useState('');
-    const [nascimento, setNasc] = useState('');
+    const [data_nasc, setNasc] = useState('');
     const [rua, setRua] = useState('');
     const [numero, setNumero] = useState('');
     const [bairro, setBairro] = useState('');
@@ -52,8 +66,9 @@ export default function Cadastro(props){
     const [pais, setPais] = useState('');
     const [cep, setCEP] = useState('');
 
-    let title = '';
-    let inputsPerType = null;
+    var title = '';
+    var inputsPerType = null;
+    var url = '';
 
     switch (props.type) {
         case 'medico':
@@ -62,6 +77,7 @@ export default function Cadastro(props){
                                 <input id='crm' name='crm' type='text' className="p-2 rounded-sm w-1/2 m-1 border border-gray-200" value={crm} onChange={elem =>setCRM(elem.target.value)} placeholder="CRM"></input>
                                 <input id='spec' name='spec' type='text' className="p-2 rounded-sm w-1/2 m-1 border border-gray-200" value={spec} onChange={elem =>setSpec(elem.target.value)} placeholder="Especialização"></input>
                             </div>);
+            url = 'medicos/cadastrar';
             break;
 
         case 'atendente':
@@ -75,7 +91,8 @@ export default function Cadastro(props){
                             <select id='planoDeSaude' name='planoDeSaude' type='text' className="p-2 rounded-sm w-1/2 m-1 border border-gray-200" value={plano} onChange={elem =>setPlano(elem.target.value)} placeholder="Plano">
                                 <option value='...'>...</option>
                             </select>
-                          </div>)
+                          </div>);
+            url = 'pacientes/cadastrar';
             break; 
 
         default:
@@ -83,7 +100,7 @@ export default function Cadastro(props){
     }
 
     return(
-        <form className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5">
+        <form className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5" onSubmit={handleSubmitForm}>
             <h1 className='text-start text-xl font-bold'>{title}</h1>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
@@ -100,7 +117,7 @@ export default function Cadastro(props){
 
             <div className="flex flex-row w-full justify-evenly">
                 <div className="flex flex-col w-1/2 justify-evenly pt-2 m-1">
-                    <input id='nasc' name='nasc' type='text' className="p-2 rounded-sm w-full border border-gray-200" style={{height:'39px'}} value={nascimento} onChange={elem =>setNasc(elem.target.value)} placeholder='Data de Nascimento' onFocus={(elem)=>{elem.target.type = 'date'}}></input>
+                    <input id='data_nasc' name='data_nasc' type='text' className="p-2 rounded-sm w-full border border-gray-200" style={{height:'39px'}} value={data_nasc} onChange={elem =>setNasc(elem.target.value)} placeholder='Data de Nascimento' onFocus={(elem)=>{elem.target.type = 'date'}}></input>
                 </div>
 
                 <div className="flex flex-row w-1/2 justify-evenly items-end pt-2 m-1">
@@ -120,7 +137,7 @@ export default function Cadastro(props){
                 <select id='pais' name='pais' type='text' className="p-2 rounded-sm w-1/4 m-1 border border-gray-200" value={pais} onChange={elem =>setPais(elem.target.value)}>
                     <option value="" defaultValue disabled>Pais</option>
                     {paises.map(item =>{
-                        return(<option value={item.name}>{item.name}</option>);
+                        return(<option value={item.name} key={item.geonameId}>{item.name}</option>);
                     })}
                 </select>
             </div>
