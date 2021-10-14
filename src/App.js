@@ -132,7 +132,7 @@ function App() {
         <div className="flex items-center justify-center h-full min-w-full bg-white">
           <Switch>
             <Route path="/signup">
-              <Cadastro type='medico'></Cadastro>
+              <Cadastro type='atendente'></Cadastro>
             </Route>
             <Route path="/login">
               <Login valida={setLogin} tipoUsuario={setIsMedico} />
@@ -152,13 +152,13 @@ function App() {
 
             </Route>
             <Route path="/cadastrar/medico">
-
+                <Cadastro type="medico"></Cadastro>
             </Route>
             <Route path="/cadastrar/paciente">
-
+              <Cadastro type="paciente"></Cadastro>
             </Route>
             <Route path="/cadastrar/atendete">
-
+              <Cadastro type="atendente"></Cadastro>
             </Route>
             <Route path="/usuarios/atendentes">
 
