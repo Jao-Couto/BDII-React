@@ -40,11 +40,14 @@ export default function Cadastro(props){
     async function handleSubmitForm(e){
         e.preventDefault()
         let data = new FormData(e.target)
-        console.log(data.get('email'));
 
         await axios.post(`http://localhost:5000/${url}`, data, {headers:{'content-type': 'multipart/form-data'}})
-            .then(response => response.text())
-            .then(text => console.log(text))
+            .then(response => {
+                if(response.data == "1")
+                    console.log("Cadastrado com sucesso");
+                else console.log(response.data);
+                
+            })
             .catch(err => console.log(err))
 
     }
