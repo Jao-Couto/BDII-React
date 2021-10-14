@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Redirect } from "react-router";
 import medicoService from '../services/medicoService';
