@@ -40,13 +40,13 @@ export default function Cadastro(props){
     async function handleSubmitForm(e){
         e.preventDefault()
         let data = new FormData(e.target)
-        await fetch(`http://localhost:5000/${url}`, {
-            method: 'post', 
-            headers: {'Content-Type': 'multipart/form-data', 'Accept': 'multipart/form-data'},
-            body: JSON.stringify(data)})
+        console.log(data.get('email'));
+
+        await axios.post(`http://localhost:5000/${url}`, data, {headers:{'content-type': 'multipart/form-data'}})
             .then(response => response.text())
             .then(text => console.log(text))
             .catch(err => console.log(err))
+
     }
 
     const [email, setEmail] = useState('');
@@ -100,7 +100,7 @@ export default function Cadastro(props){
     }
 
     return(
-        <form className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5" onSubmit={handleSubmitForm}>
+        <form className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5" onSubmit={handleSubmitForm} enctype="multipart/form-data">
             <h1 className='text-start text-xl font-bold'>{title}</h1>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
