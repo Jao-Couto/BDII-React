@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import medicoService from '../services/medicoService';
 

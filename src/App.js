@@ -8,6 +8,7 @@ import {
   Link
 } from "react-router-dom";
 import { Alignment, Button, Menu, Navbar, Popover, Position } from "@blueprintjs/core";
+import Table from "./components/table";
 
 
 function App() {
@@ -151,7 +152,7 @@ function App() {
               
             </Route>
             <Route path="/">
-              
+              <Table></Table>
             </Route>
           </Switch>
         </div>
