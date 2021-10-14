@@ -5,10 +5,6 @@ import DataTable from 'react-data-table-component';
 export default function Table(){
     const columns = [
         {
-            name: '#',
-            selector: row => row.num,
-        },
-        {
             name: 'Nome',
             selector: row => row.nome,
         },
@@ -37,7 +33,6 @@ export default function Table(){
     const data = [
         {
             id: 1,
-            num: '1',
             nome: 'joao',
             cpf: '111.111.111-11',
             temperatura: '38',
@@ -47,7 +42,6 @@ export default function Table(){
         },
         {
             id: 2,
-            num: '2',
             nome: 'carlos',
             cpf: '111.111.111-22',
             temperatura: '37',
@@ -57,7 +51,6 @@ export default function Table(){
         },
         {
             id: 3,
-            num: '3',
             nome: 'carlos',
             cpf: '111.111.111-22',
             temperatura: '37',
@@ -67,7 +60,6 @@ export default function Table(){
         },
         {
             id: 4,
-            num: '4',
             nome: 'carlos',
             cpf: '111.111.111-22',
             temperatura: '37',
@@ -77,7 +69,6 @@ export default function Table(){
         },
         {
             id: 5,
-            num: '5',
             nome: 'carlos',
             cpf: '111.111.111-22',
             temperatura: '37',
@@ -87,7 +78,6 @@ export default function Table(){
         },
         {
             id: 6,
-            num: '6',
             nome: 'carlos',
             cpf: '111.111.111-22',
             temperatura: '37',
@@ -97,6 +87,12 @@ export default function Table(){
         },
     ]
 
+    const handleChange = ({ selectedRows }) => {
+        // You can set state or dispatch with something like Redux so we can use the retrieved data
+        console.log('Selected Rows: ', selectedRows);
+      };
+    
+
     return(
         <div class="flex items-center flex-col justify-center h-full w-10/12 bg-white">
             <h1 className='text-5xl text-center mb-5'>Fila de atendimento</h1>
@@ -105,6 +101,7 @@ export default function Table(){
                 data={data}
                 selectableRows
                 pagination
+                onSelectedRowsChange={handleChange}
             />
         </div>
     );
