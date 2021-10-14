@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import { Alignment, Button, Menu, Navbar, Popover, Position } from "@blueprintjs/core";
 import Table from "./components/table";
+import Cadastro from "./components/Cadastro";
 
 
 function App() {
@@ -131,7 +132,7 @@ function App() {
         <div className="flex items-center justify-center h-full min-w-full bg-white">
           <Switch>
             <Route path="/signup">
-
+              <Cadastro type='paciente'></Cadastro>
             </Route>
             <Route path="/login">
               <Login valida={setLogin} tipoUsuario={setIsMedico} />
