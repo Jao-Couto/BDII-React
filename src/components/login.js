@@ -1,4 +1,4 @@
-import { fromJSON } from "purgecss/node_modules/postcss";
+
 import React, { useState } from "react";
 import medicoService from '../services/medicoService';
 
