@@ -6,12 +6,9 @@ import {
   Switch,
   Route,
   Link,
-  Redirect,
-  useHistory,
-  useLocation
 } from "react-router-dom";
 import { Alignment, Button, Menu, Navbar, Popover, Position } from "@blueprintjs/core";
-import Table from "./components/table";
+import Atendimentos from "./components/Atendimentos";
 import Cadastro from "./components/Cadastro";
 
 
@@ -170,7 +167,7 @@ function App() {
 
             </Route>
             <Route path="/">
-              <Table></Table>
+              <Atendimentos colunas="atendente"></Atendimentos>
             </Route>
           </Switch>
         </div>
