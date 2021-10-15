@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Login from "./components/login";
 
 import {
@@ -6,6 +6,7 @@ import {
   Switch,
   Route,
   Link,
+  Redirect
 } from "react-router-dom";
 import { Alignment, Button, Menu, Navbar, Popover, Position } from "@blueprintjs/core";
 import Atendimentos from "./components/Atendimentos";
@@ -13,83 +14,42 @@ import Cadastro from "./components/Cadastro";
 
 
 function App() {
-  const [isLogin, setLogin] = useState(false);
-  const [isMedico, setIsMedico] = useState(false)
+  const useStateWithLocalStorage = localStorageKey => {
+    const [value, setValue] = React.useState(
+      localStorage.getItem(localStorageKey) || ''
+    );
 
-  function mostraBotoesLoginLogout() {
-    if (isLogin) {
-      return <Button className="bp3-minimal" icon="log-out" intent='danger' text='Logout' onClick={() => setLogin(false)} />
-    } else {
-      return <>
-        <Link to="/login" style={{ textDecoration: 'none' }}>
-          <Button className="bp3-minimal" icon="log-in" text='Login' />
-        </Link>
-        <Link to="/signup" style={{ textDecoration: 'none' }}>
-          <Button className="bp3-minimal" icon="inbox" text='Signup' />
-        </Link>
-      </>
+    React.useEffect(() => {
+      localStorage.setItem(localStorageKey, value);
+    }, [localStorageKey, value]);
 
-    }
+    return [value, setValue];
+  };
 
+  const [isLogin, setLogin] = useStateWithLocalStorage(false);
+  const [isMedico, setIsMedico] = useStateWithLocalStorage(false)
+
+
+  function PrivateRoute({ children, ...rest }) {
+    return (
+
+      <Route
+        {...rest}
+        render={() =>
+          isLogin ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/"
+              }}
+            />
+          )
+        }
+      />
+    );
   }
-  function mostraIconesNavbar() {
-    if (isLogin) {
-      if (isMedico) {
-        return <>
-          <Link to="/medico/" style={{ textDecoration: 'none' }}>
-            <Button className="bp3-minimal" icon="inbox" text="Atendimentos"></Button>
-          </Link>
-          <Link to="/medico/exames" style={{ textDecoration: 'none' }}>
-            <Button className="bp3-minimal" icon="application" text="Exames"></Button>
-          </Link>
-          <Link to="/medico/plantao" style={{ textDecoration: 'none' }}>
-            <Button className="bp3-minimal" icon="box" text="Plantão"></Button>
-          </Link>
-        </>
-      } else {
-        return <>
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <Button className="bp3-minimal" icon="inbox" text="Atendimentos"></Button>
-          </Link>
-          <Link to="/add-atendimento" style={{ textDecoration: 'none' }}>
-            <Button className="bp3-minimal" icon="application" text="Adicionar Atendimento"></Button>
-          </Link>
-          <Popover content={
-            <Menu>
-              <Link to="/cadastrar/medico" style={{ textDecoration: 'none' }}>
-                <Button className="bp3-minimal" text="Médico"></Button>
-              </Link>
-              <Link to="/cadastrar/paciente" style={{ textDecoration: 'none' }}>
-                <Button className="bp3-minimal" text="Paciente"></Button>
-              </Link>
-            </Menu>
-          } position={Position.TOP}>
-            <Button className="bp3-minimal" icon="share" text="Cadastrar" />
-          </Popover>
-          <Popover content={
-            <Menu>
-              <Link to="/usuarios/atendentes" style={{ textDecoration: 'none' }}>
-                <Button className="bp3-minimal" text="Atendentes"></Button>
-              </Link>
-              <Link to="/usuarios/medicos" style={{ textDecoration: 'none' }}>
-                <Button className="bp3-minimal" text="Médicos"></Button>
-              </Link>
-              <Link to="/usuarios/pacientes" style={{ textDecoration: 'none' }}>
-                <Button className="bp3-minimal" text="Pacientes"></Button>
-              </Link>
-            </Menu>
-          } position={Position.TOP}>
-            <Button className="bp3-minimal" icon="join-table" text="Tabelas" />
-          </Popover>
 
-        </>
-      }
-    } else {
-      return <div></div>
-
-    }
-
-  }
 
 
 
@@ -114,13 +74,75 @@ function App() {
 
             <Navbar.Divider />
 
-            {mostraIconesNavbar()}
+            {isLogin ?
+              isMedico ?
+                <>
+                  <Link to="/medico/" style={{ textDecoration: 'none' }}>
+                    <Button className="bp3-minimal" icon="inbox" text="Atendimentos"></Button>
+                  </Link>
+                  <Link to="/medico/exames" style={{ textDecoration: 'none' }}>
+                    <Button className="bp3-minimal" icon="application" text="Exames"></Button>
+                  </Link>
+                  <Link to="/medico/plantao" style={{ textDecoration: 'none' }}>
+                    <Button className="bp3-minimal" icon="box" text="Plantão"></Button>
+                  </Link>
+                </>
+                :
+                <>
+                  <Link to="/" style={{ textDecoration: 'none' }}>
+                    <Button className="bp3-minimal" icon="inbox" text="Atendimentos"></Button>
+                  </Link>
+                  <Link to="/add-atendimento" style={{ textDecoration: 'none' }}>
+                    <Button className="bp3-minimal" icon="application" text="Adicionar Atendimento"></Button>
+                  </Link>
+                  <Popover content={
+                    <Menu>
+                      <Link to="/cadastrar/medico" style={{ textDecoration: 'none' }}>
+                        <Button className="bp3-minimal" text="Médico"></Button>
+                      </Link>
+                      <Link to="/cadastrar/paciente" style={{ textDecoration: 'none' }}>
+                        <Button className="bp3-minimal" text="Paciente"></Button>
+                      </Link>
+                    </Menu>
+                  } position={Position.TOP}>
+                    <Button className="bp3-minimal" icon="share" text="Cadastrar" />
+                  </Popover>
+                  <Popover content={
+                    <Menu>
+                      <Link to="/usuarios/atendentes" style={{ textDecoration: 'none' }}>
+                        <Button className="bp3-minimal" text="Atendentes"></Button>
+                      </Link>
+                      <Link to="/usuarios/medicos" style={{ textDecoration: 'none' }}>
+                        <Button className="bp3-minimal" text="Médicos"></Button>
+                      </Link>
+                      <Link to="/usuarios/pacientes" style={{ textDecoration: 'none' }}>
+                        <Button className="bp3-minimal" text="Pacientes"></Button>
+                      </Link>
+                    </Menu>
+                  } position={Position.TOP}>
+                    <Button className="bp3-minimal" icon="join-table" text="Tabelas" />
+                  </Popover>
+
+                </>
+
+              : <div></div>}
 
           </Navbar.Group>
           <Navbar.Group align={Alignment.RIGHT}>
             <Navbar.Divider />
 
-            {mostraBotoesLoginLogout()}
+            {isLogin ?
+              <Button className="bp3-minimal" icon="log-out" intent='danger' text='Logout' onClick={() => setLogin(false)} />
+              :
+              <>
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                  <Button className="bp3-minimal" icon="log-in" text='Login' />
+                </Link>
+                <Link to="/signup" style={{ textDecoration: 'none' }}>
+                  <Button className="bp3-minimal" icon="inbox" text='Signup' />
+                </Link>
+              </>
+            }
 
           </Navbar.Group>
         </Navbar>
@@ -135,40 +157,40 @@ function App() {
               <Login valida={setLogin} tipoUsuario={setIsMedico} />
             </Route>
             {/*Médico*/}
-            <Route path="/medico/">
+            <PrivateRoute path="/medico/exames">
 
-            </Route>
-            <Route path="/medico/exames">
+            </PrivateRoute>
+            <PrivateRoute path="/medico/plantao">
 
-            </Route>
-            <Route path="/medico/plantao">
+            </PrivateRoute>
+            <PrivateRoute path="/medico/">
 
-            </Route>
+            </PrivateRoute>
             {/*Atendente*/}
-            <Route path="/add-atendimento">
+            <PrivateRoute path="/add-atendimento">
 
-            </Route>
-            <Route path="/cadastrar/medico">
-                <Cadastro type="medico"></Cadastro>
-            </Route>
-            <Route path="/cadastrar/paciente">
-              <Cadastro type="paciente"></Cadastro>
-            </Route>
-            <Route path="/cadastrar/atendete">
-              <Cadastro type="atendente"></Cadastro>
-            </Route>
-            <Route path="/usuarios/atendentes">
+            </PrivateRoute>
+            <PrivateRoute path="/cadastrar/medico">
+              <Cadastro type="medico" />
+            </PrivateRoute>
+            <PrivateRoute path="/cadastrar/paciente">
+              <Cadastro type="paciente" />
+            </PrivateRoute>
+            <PrivateRoute path="/cadastrar/atendete">
+              <Cadastro type="atendente" />
+            </PrivateRoute>
+            <PrivateRoute path="/usuarios/atendentes">
 
-            </Route>
-            <Route path="/usuarios/medicos">
+            </PrivateRoute>
+            <PrivateRoute path="/usuarios/medicos">
 
-            </Route>
-            <Route path="/usuarios/pacientes">
+            </PrivateRoute>
+            <PrivateRoute path="/usuarios/pacientes">
 
-            </Route>
-            <Route path="/">
-              <Atendimentos colunas="atendente"></Atendimentos>
-            </Route>
+            </PrivateRoute>
+            <PrivateRoute path="/">
+              <Atendimentos colunas="atendente" />
+            </PrivateRoute>
           </Switch>
         </div>
       </Router>
