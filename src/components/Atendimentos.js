@@ -1,12 +1,11 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import { useState } from 'react/cjs/react.development';
 
 export default function Atendimentos(props) {
     const [column, setColumn] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (props.colunas === "atendente")
             setColumn([
                 {
