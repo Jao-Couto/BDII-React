@@ -8,8 +8,8 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import { Alignment, Button, Menu, Navbar, Popover, Position } from "@blueprintjs/core";
-import Table from "./components/table";
+import Button from 'react-bootstrap/Button'
+import Table from "./components/Table";
 import Cadastro from "./components/Cadastro";
 
 

@@ -1,8 +1,8 @@
-import { Divider } from '@blueprintjs/core';
+
 import React from 'react';
 import DataTable from 'react-data-table-component';
 
-export default function Table(){
+export default function Table() {
     const columns = [
         {
             name: 'Nome',
@@ -29,7 +29,7 @@ export default function Table(){
             selector: row => row.urgencia,
         },
     ];
-    
+
     const data = [
         {
             id: 1,
@@ -90,10 +90,10 @@ export default function Table(){
     const handleChange = ({ selectedRows }) => {
         // You can set state or dispatch with something like Redux so we can use the retrieved data
         console.log('Selected Rows: ', selectedRows);
-      };
-    
+    };
 
-    return(
+
+    return (
         <div class="flex items-center flex-col justify-center h-full w-10/12 bg-white">
             <h1 className='text-5xl text-center mb-5'>Fila de atendimento</h1>
             <DataTable
