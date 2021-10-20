@@ -18,7 +18,9 @@ export default function Login(params) {
                 if (response.data.status) {
                     console.log("Logado com suceeso");
                     params.valida(true);
-                    params.tipoUsuario(response.data.mensagem === "Médico")
+                    let medico = response.data.mensagem === "Médico"
+                    params.tipoUsuario(medico)
+                    params.table((medico) ? "medico" : "atendente")
                     setRedirect(true)
 
                 } else {

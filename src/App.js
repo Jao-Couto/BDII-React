@@ -11,6 +11,7 @@ import {
 import { Alignment, Button, Menu, Navbar, Popover, Position } from "@blueprintjs/core";
 import Atendimentos from "./components/Atendimentos";
 import Cadastro from "./components/Cadastro";
+import { useState } from "react/cjs/react.development";
 
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
 
   const [isLogin, setLogin] = useStateWithLocalStorage(false);
   const [isMedico, setIsMedico] = useStateWithLocalStorage(false)
+
+  const [table, setTable] = useState("atendente");
+
 
 
   function PrivateRoute({ children, ...rest }) {
@@ -64,6 +68,7 @@ function App() {
       setTimeout(cb, 100);
     }
   };
+
 
   return (
     <div className="flex flex-col items-center h-screen bg-black">
@@ -154,7 +159,7 @@ function App() {
               <Cadastro type='atendente'></Cadastro>
             </Route>
             <Route path="/login">
-              <Login valida={setLogin} tipoUsuario={setIsMedico} />
+              <Login valida={setLogin} tipoUsuario={setIsMedico} table={setTable} />
             </Route>
             {/*Médico*/}
             <PrivateRoute path="/medico/exames">
@@ -189,7 +194,7 @@ function App() {
 
             </PrivateRoute>
             <PrivateRoute path="/">
-              <Atendimentos colunas="atendente" />
+              <Atendimentos colunas={table} />
             </PrivateRoute>
           </Switch>
         </div>
