@@ -31,7 +31,7 @@ export default function Atendimentos(props) {
         .listarAtendimentosAtendente()
         .then((response) => {
           let dados = response.data;
-          dados.map((elem, ind) => {
+          dados.foreach((elem, ind) => {
             let data = new Date(elem["data_hora"]);
             let dataFormat =
               data.getDate() +
@@ -88,7 +88,7 @@ export default function Atendimentos(props) {
         .listarAtendimentosMedico()
         .then((response) => {
           let dados = response.data;
-          dados.map((elem, ind) => {
+          dados.foreach((elem, ind) => {
             let data = new Date(elem["data_hora"]);
             let dataFormat =
               data.getDate() +
@@ -112,7 +112,7 @@ export default function Atendimentos(props) {
           console.log(error);
         });
     }
-  }, []);
+  }, [props.colunas]);
 
   const handleChange = ({ selectedRows }) => {
     // You can set state or dispatch with something like Redux so we can use the retrieved data

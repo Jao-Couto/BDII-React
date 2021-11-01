@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import $ from "jquery";
 import "jquery-mask-plugin/dist/jquery.mask.min";
-import { RangeSlider, Button } from "@blueprintjs/core";
 
 export default function Cadastro(props) {
   async function getCEPFromForm(cep) {
@@ -39,19 +38,14 @@ export default function Cadastro(props) {
     getPaises();
     $("#cpf").mask("000.000.000-00", { reverse: true });
     $("#cep").mask("00000-000");
-    $("#salario").mask("#.##0,00", { reverse: true });
+    $("#salario").mask("###0.00", { reverse: true });
     $("#rg").mask("00.000.000-0", { reverse: true });
   }, []);
 
   async function handleSubmitForm(e) {
     e.preventDefault();
     let data = new FormData(e.target);
-
-    if (props.type === "medico") {
-      data.append("hor_entrad", range[0] * 10000);
-      data.append("hor_saida", range[1] * 10000);
-    }
-
+    console.log(data.get("salario"));
     await axios
       .post(`http://localhost:5000/${url}`, data, {
         headers: { "content-type": "multipart/form-data" },
@@ -63,27 +57,13 @@ export default function Cadastro(props) {
       .catch((err) => console.log(err));
   }
 
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [nome, setNome] = useState("");
-  const [cpf, setCPF] = useState("");
-  const [rg, setRG] = useState("");
-  const [crm, setCRM] = useState("");
-  const [spec, setSpec] = useState("");
-  const [plano, setPlano] = useState("");
-  const [data_nasc, setNasc] = useState("");
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
-  const [pais, setPais] = useState("");
   const [cep, setCEP] = useState("");
-  const [salario, setSalario] = useState("");
-  const [carga_hor_semana, setCargaHRS] = useState("");
   const [mostraSenha, setMostraSenha] = useState(false);
-  const [range, setRange] = useState([4, 10]);
-
   var title = "";
   var inputsPerType = null;
   var url = "";
@@ -99,8 +79,6 @@ export default function Cadastro(props) {
               name="rg"
               type="text"
               className="p-2 rounded-sm w-1/2 m-1 border border-gray-200"
-              value={rg}
-              onChange={(elem) => setRG(elem.target.value)}
               placeholder="RG"
               required
             ></input>
@@ -111,8 +89,6 @@ export default function Cadastro(props) {
               name="crm"
               type="text"
               className="p-2 rounded-sm w-1/2 m-1 border border-gray-200"
-              value={crm}
-              onChange={(elem) => setCRM(elem.target.value)}
               placeholder="CRM"
               required
             ></input>
@@ -121,8 +97,6 @@ export default function Cadastro(props) {
               name="especializacao"
               type="text"
               className="p-2 rounded-sm w-1/2 m-1 border border-gray-200"
-              value={spec}
-              onChange={(elem) => setSpec(elem.target.value)}
               placeholder="Especialização"
               required
             ></input>
@@ -131,11 +105,10 @@ export default function Cadastro(props) {
             <input
               id="salario"
               name="salario"
-              type="text"
+              type="number"
+              step="0.01"
               className="p-2 rounded-sm w-1/4 m-1 border border-gray-200"
               style={{ height: "39px" }}
-              value={salario}
-              onChange={(elem) => setSalario(elem.target.value)}
               placeholder="Salário"
               required
             ></input>
@@ -143,17 +116,8 @@ export default function Cadastro(props) {
               <h1 className="text-gray-400">
                 Horario de Entrada - Horario de Saida
               </h1>
-              <RangeSlider
-                min={0}
-                max={24}
-                stepSize={1}
-                labelStepSize={6}
-                onChange={(range) => {
-                  setRange(range);
-                }}
-                value={range}
-                required
-              ></RangeSlider>
+              <input id="hora_entrada" type="number" />
+              <input id="hora_entrada" type="number" />
             </div>
             <div className="relative m-1 w-1/4">
               <input
@@ -162,8 +126,6 @@ export default function Cadastro(props) {
                 type="text"
                 className="p-2 rounded-sm w-full m-1 border border-gray-200"
                 style={{ height: "39px" }}
-                value={carga_hor_semana}
-                onChange={(elem) => setCargaHRS(elem.target.value)}
                 placeholder="8"
                 required
               ></input>
@@ -180,21 +142,33 @@ export default function Cadastro(props) {
     case "atendente":
       title = "Cadastro Atendente";
       inputsPerType = (
-        <div className="relative m-1 w-1/2">
-          <input
-            id="carga_hor_semana"
-            name="carga_hor_semana"
-            type="text"
-            className="p-2 rounded-sm w-full m-1 border border-gray-200"
-            style={{ height: "39px" }}
-            value={carga_hor_semana}
-            onChange={(elem) => setCargaHRS(elem.target.value)}
-            placeholder="8"
-            required
-          ></input>
-          <span className="absolute top-1/4 right-1 text-gray-400">
-            hr de Carga Semanal
-          </span>
+        <div className="flex flex-row w-full">
+          <div className="relative m-1 w-1/2">
+            <input
+              id="carga_hor_semana"
+              name="carga_hor_semana"
+              type="text"
+              className="p-2 rounded-sm w-full m-1 border border-gray-200"
+              style={{ height: "39px" }}
+              placeholder="8"
+              required
+            />
+            <span className="absolute top-1/4 right-1 text-gray-400">
+              hr de Carga Semanal
+            </span>
+          </div>
+          <div className="relative m-1 w-1/2">
+            <input
+              id="salario"
+              name="salario"
+              type="number"
+              step="0.01"
+              className="p-2 rounded-sm w-1/4 m-1 border border-gray-200"
+              style={{ height: "39px" }}
+              placeholder="Salário"
+              required
+            />
+          </div>
         </div>
       );
       url = "atendentes/cadastrar";
@@ -209,8 +183,6 @@ export default function Cadastro(props) {
             name="rg"
             type="text"
             className="p-2 rounded-sm w-1/2 m-1 border border-gray-200"
-            value={rg}
-            onChange={(elem) => setRG(elem.target.value)}
             placeholder="RG"
             required
           ></input>
@@ -219,8 +191,6 @@ export default function Cadastro(props) {
             name="planoDeSaude"
             type="text"
             className="p-2 rounded-sm w-1/2 m-1 border border-gray-200"
-            value={plano}
-            onChange={(elem) => setPlano(elem.target.value)}
             placeholder="Plano"
             required
           >
@@ -249,8 +219,6 @@ export default function Cadastro(props) {
           name="email"
           type="text"
           className="p-2 rounded-sm w-3/5 m-1 border border-gray-200"
-          value={email}
-          onChange={(elem) => setEmail(elem.target.value)}
           placeholder="Email"
           required
         ></input>
@@ -263,18 +231,16 @@ export default function Cadastro(props) {
             name="senha"
             type={mostraSenha ? "text" : "password"}
             className="p-2 w-4/5 rounded-l-sm border border-r-0 border-gray-200 outline-none"
-            value={senha}
-            onChange={(elem) => setSenha(elem.target.value)}
             placeholder="Senha"
           ></input>
-          <Button
+          <div
             icon={mostraSenha ? "eye-off" : "eye-open"}
             className="rounded-r-sm w-1/5 outline-none"
             id="showPSW"
             onClick={() => {
               setMostraSenha(!mostraSenha);
             }}
-          ></Button>
+          ></div>
         </div>
       </div>
 
@@ -284,8 +250,6 @@ export default function Cadastro(props) {
           name="nome"
           type="text"
           className="p-2 rounded-sm w-3/5 m-1 border border-gray-200"
-          value={nome}
-          onChange={(elem) => setNome(elem.target.value)}
           placeholder="Nome completo"
           required
         ></input>
@@ -294,8 +258,6 @@ export default function Cadastro(props) {
           name="cpf"
           type="text"
           className="p-2 rounded-sm w-2/5 m-1 border border-gray-200"
-          value={cpf}
-          onChange={(elem) => setCPF(elem.target.value)}
           placeholder="CPF"
           required
         ></input>
@@ -311,8 +273,6 @@ export default function Cadastro(props) {
             type="text"
             className="p-2 rounded-sm w-full border border-gray-200"
             style={{ height: "39px" }}
-            value={data_nasc}
-            onChange={(elem) => setNasc(elem.target.value)}
             placeholder="Data de Nascimento"
             onFocus={(elem) => {
               elem.target.type = "date";
@@ -398,9 +358,6 @@ export default function Cadastro(props) {
           name="pais"
           type="text"
           className="p-2 rounded-sm w-1/4 m-1 border border-gray-200"
-          value={pais}
-          onChange={(elem) => setPais(elem.target.value)}
-          required
         >
           <option value="" defaultValue disabled>
             Pais
