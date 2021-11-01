@@ -33,18 +33,7 @@ export default function Atendimentos(props) {
           let dados = response.data;
           dados.map((elem, ind) => {
             let data = new Date(elem["data_hora"]);
-            let dataFormat =
-              data.getDate() +
-              "/" +
-              (data.getMonth() + 1) +
-              "/" +
-              data.getFullYear() +
-              " " +
-              data.getHours() +
-              ":" +
-              data.getMinutes() +
-              ":" +
-              data.getSeconds();
+            let dataFormat = data.toLocaleString('pt-BR', { timeZone: 'UTC' });
             dados[ind]["data_hora"] = dataFormat;
           });
 
@@ -90,18 +79,7 @@ export default function Atendimentos(props) {
           let dados = response.data;
           dados.map((elem, ind) => {
             let data = new Date(elem["data_hora"]);
-            let dataFormat =
-              data.getDate() +
-              "/" +
-              (data.getMonth() + 1) +
-              "/" +
-              data.getFullYear() +
-              " " +
-              data.getHours() +
-              ":" +
-              data.getMinutes() +
-              ":" +
-              data.getSeconds();
+            let dataFormat = data.toLocaleString('pt-BR', { timeZone: 'UTC' });
             dados[ind]["data_hora"] = dataFormat;
           });
 
