@@ -9,7 +9,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Atendimentos from "./components/Atendimentos";
-import Cadastro from "./components/Cadastro";
+import CadastroUsuario from "./components/CadastroUsuario";
 import { useState } from "react/cjs/react.development";
 
 function App() {
@@ -167,7 +167,7 @@ function App() {
         <div className="flex items-center justify-center h-full min-w-full bg-white">
           <Switch>
             <Route path="/signup">
-              <Cadastro type="atendente"></Cadastro>
+              <CadastroUsuario type="atendente"></CadastroUsuario>
             </Route>
             <Route path="/login">
               <Login
@@ -183,13 +183,13 @@ function App() {
             {/*Atendente*/}
             <PrivateRoute path="/add-atendimento"></PrivateRoute>
             <PrivateRoute path="/cadastrar/medico">
-              <Cadastro type="medico" />
+              <CadastroUsuario type="medico" />
             </PrivateRoute>
             <PrivateRoute path="/cadastrar/paciente">
-              <Cadastro type="paciente" />
+              <CadastroUsuario type="paciente" />
             </PrivateRoute>
             <PrivateRoute path="/cadastrar/atendete">
-              <Cadastro type="atendente" />
+              <CadastroUsuario type="atendente" />
             </PrivateRoute>
             <PrivateRoute path="/usuarios/atendentes"></PrivateRoute>
             <PrivateRoute path="/usuarios/medicos"></PrivateRoute>
