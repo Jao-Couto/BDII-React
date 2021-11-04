@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       height: {
         'form-input':'42px',
+      },
+      minWidth: {
+        'navbar-btn':'160px'
       }
     },
   },
