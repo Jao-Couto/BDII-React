@@ -111,7 +111,7 @@ export default function CadastroUsuario(props) {
 
         <div className="flex flex-row w-full justify-evenly pt-2">
           <FormInput name='email' placeholder='Email' type='text' size='w-3/5'/>
-          <PasswordInput/>
+          <PasswordInput size="w-2/5"/>
         </div>
 
         <div className="flex flex-row w-full justify-evenly pt-2">

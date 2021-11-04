@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router";
 import medicoService from "../services/medicoService";
+import FormInput from "./FormInput";
+import PasswordInput from "./PasswordInput";
 
 export default function Login(params) {
   const [redirect, setRedirect] = useState(false);
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
 
-  const entrar = () => {
+  const entrar = (email, senha) => {
     let data = {
       email: email,
       senha: senha,
@@ -34,42 +34,24 @@ export default function Login(params) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    entrar();
+    const data = new FormData(event.target);
+    entrar(data.get('email'), data.get('senha'));
   };
 
   return (
     <main className="container flex flex-col h-96 lg:w-5/12 sm:w-full bg-gradient-to-b  from-blue-600 to-blue-400 rounded-md">
       <h1 className="text-5xl text-center mt-5 text-white">Login</h1>
       <form
-        className="flex flex-col p-6 justify-around items-center h-full"
+        className="flex flex-col p-6 justify-evenly items-center h-full"
         onSubmit={handleSubmit}
       >
-        <input
-          type="email"
-          id="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          value={email}
-          className="p-2 rounded-sm w-2/3"
-          placeholder="Email"
-          required
-        ></input>
-        <input
-          type="password"
-          id="senha"
-          onChange={(e) => {
-            setSenha(e.target.value);
-          }}
-          value={senha}
-          className="p-2 rounded-sm w-2/3"
-          placeholder="Senha"
-          required
-        ></input>
+        <FormInput name="email" placeholder="Email" size="w-2/3"/>
+        <PasswordInput size="w-2/3"/>
         {redirect ? <Redirect to="/" /> : null}
         <input
           type="submit"
           className="p-2 rounded-lg w-1/4 mx-auto bg-blue-900 text-white font-bold"
+          value="Entrar"
         />
       </form>
     </main>
