@@ -103,7 +103,7 @@ export default function CadastroUsuario(props) {
   return (
     <enderecoContext.Provider value={{setRua, setBairro, setCidade, setEstado}}>
       <form
-        className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5"
+        className="container flex flex-col h-auto lg:w-8/12 sm:w-full bg-white rounded-md p-5"
         onSubmit={(e)=>{cadastroUsuarioService.CadastrarUsuarios(e, url)}}
         encType="multipart/form-data"
       >
