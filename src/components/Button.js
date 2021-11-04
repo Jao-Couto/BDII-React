@@ -13,11 +13,11 @@ export default function Button(props){
 }
 
 Button.defaultProps = {
-    height: "h-full",
-    width: "w-full",
-    color: "bg-white",
-    backdrop: "bg-black",
-    styles: '',
-    onClick: ()=>{},
-    icon: false
+    height: "h-full", // Altura
+    width: "w-full", // Largura
+    color: "bg-white", // Cor principal do botão
+    backdrop: "bg-black", // Fundo do botão para dar contraste quando existiver focado
+    styles: '', // Estilos adicionais
+    onClick: ()=>{}, // Handler de onclick
+    icon: false // Icone se necessario, é necessario entregar o component, e não só uma String
 }
