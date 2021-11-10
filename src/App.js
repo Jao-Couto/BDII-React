@@ -1,6 +1,6 @@
 import React from "react";
 import Login from "./components/login";
-import { FaUsers, FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { FaUsers, FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt, FaNotesMedical } from "react-icons/fa";
 
 import {
   BrowserRouter as Router,
@@ -16,6 +16,7 @@ import DropdownMenu from "./components/DropdownMenu";
 import useLocalStorage from "./services/useLocalStorage";
 import CadastroExames from "./components/CadastroExames";
 import CadastroAtendimentos from "./components/CadastroAtendimento";
+import Exames from "./components/Exames";
 
 function App() {
 
@@ -82,7 +83,7 @@ function App() {
                     options={[
                       { name: "Medico", route: "/cadastrar/medico", icon: <FaUserMd size="18" /> },
                       { name: "Paciente", route: "/cadastrar/paciente", icon: <FaUserInjured size="18" /> },
-                      { name: "Exames", route: "/cadastrar/exames", icon: <FaUserInjured size="18" /> }
+                      { name: "Exames", route: "/cadastrar/exames", icon: <FaNotesMedical size="18" /> }
                     ]}
                   />
                   <DropdownMenu
@@ -131,7 +132,9 @@ function App() {
               />
             </Route>
             {/*Médico*/}
-            <PrivateRoute path="/medico/exames"></PrivateRoute>
+            <PrivateRoute path="/medico/exames">
+              <Exames/>
+            </PrivateRoute>
             <PrivateRoute path="/medico/plantao"></PrivateRoute>
             <PrivateRoute path="/medico/">
               <Atendimentos />

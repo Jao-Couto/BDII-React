@@ -12,6 +12,7 @@ export default function CadastroExames(props) {
 
         examesService.cadastrarExames(data)
             .then((response) => {
+                console.log(response)
                 setNome('')
                 if (response.data.affectedRows === 1)
                     alert("Cadastrado com sucesso!!");
