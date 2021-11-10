@@ -33,7 +33,7 @@ export default function CadastroExames(props) {
     var title = 'Cadastro de Exame';
 
     return (
-        <form className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5" onSubmit={handleSubmitForm} encType="multipart/form-data">
+        <form className="container flex flex-col h-auto w-full lg:w-8/12  bg-white rounded-md p-5" onSubmit={handleSubmitForm} encType="multipart/form-data">
             <h1 className='text-start text-xl font-bold'>{title}</h1>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
