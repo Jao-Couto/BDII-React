@@ -22,6 +22,12 @@ function App() {
   const [isLogin, setLogin] = useLocalStorage("isLogged", false);
   const [isAtendente, setIsAtendente] = useLocalStorage("isAtendente", false);
 
+  function handleLogout(){
+    setLogin(false);
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
+  }
+
   function PrivateRoute({ children, ...rest }) {
     return (
       <Route
@@ -94,7 +100,7 @@ function App() {
               )}
             </div>
             <div className="flex items-end">
-              <Button name="Logout" icon={<FaSignOutAlt size="24" />} onClick={() => setLogin(false)} color="bg-red-500" styles="rounded-sm text-white cursor-pointer" backdrop="bg-white" />
+              <Button name="Logout" icon={<FaSignOutAlt size="24" />} onClick={() => handleLogout()} color="bg-red-500" styles="rounded-sm text-white cursor-pointer" backdrop="bg-white" />
             </div>
           </>
           ) : (
