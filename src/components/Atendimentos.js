@@ -100,7 +100,7 @@ export default function Atendimentos(props) {
   };
 
   return (
-    <div class="flex items-center flex-col justify-center h-full w-10/12 bg-white">
+    <div className="flex items-center flex-col justify-center h-full w-10/12 bg-white">
       <h1 className="text-5xl text-center mb-5">Fila de atendimento</h1>
       <DataTable
         columns={column}
