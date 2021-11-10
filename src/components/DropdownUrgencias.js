@@ -23,7 +23,7 @@ export default function DropdownUrgencias(props) {
     return (
         <select
             id="urgencia"
-            name="urgencia"
+            name="cod_urgencia"
             type="text"
             className={"p-2 rounded-sm m-1 border border-gray-200 " + props.size}
             style={{ backgroundColor: color }}

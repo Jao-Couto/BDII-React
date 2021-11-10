@@ -6,6 +6,7 @@ class AtendimentosService {
     async CadastrarAtendimentos(e, url) {
         e.preventDefault();
         let data = new FormData(e.target);
+        console.log(data.get("cpf_atendente"));
         await axios
             .post(`http://localhost:5000/${url}`, data, {
                 headers: { "content-type": "multipart/form-data" },

@@ -3,14 +3,14 @@ import { useState } from "react";
 import $ from "jquery";
 import "jquery-mask-plugin/dist/jquery.mask.min";
 import FormInput from "./FormInput";
-import DateInput from "./DateInput";
-import cadastroUsuarioService from "../services/CadastroUsuarioService";
 import DropdownUrgencias from "./DropdownUrgencias";
+import DropdownSearchPacientes from "./DropdownSearchPacientes";
+import atendimentosService from "../services/atendimentosService";
 
 export default function CadastroAtendimentos(props) {
 
     useEffect(() => {
-        $("#cpf").mask("000.000.000-00", { reverse: true });
+        $("#cpf_atendente").mask("000.000.000-00", { reverse: true });
     }, []);
 
     var title = "Adicionar Atendimento";
@@ -20,14 +20,14 @@ export default function CadastroAtendimentos(props) {
     return (
         <form
             className="container flex flex-col h-auto lg:w-8/12 sm:w-full bg-white rounded-md p-5"
-            onSubmit={(e) => { cadastroUsuarioService.CadastrarUsuarios(e, "atendimentos/cadastro") }}
+            onSubmit={(e) => { atendimentosService.CadastrarAtendimentos(e, "atendimentos/cadastrar") }}
             encType="multipart/form-data"
         >
             <h1 className="text-start text-xl font-bold">{title}</h1>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
-                <FormInput name='cpf_atendente' placeholder='CPF Atendente' type='text' size='w-1/2' readonly={true} />
-                <FormInput name='cpf' placeholder='CPF Paciente' type='text' size='w-1/2' />
+                <FormInput name='cpf_atendente' placeholder='CPF Atendente' type='text' size='w-1/2' />
+                <DropdownSearchPacientes />
             </div>
 
             <div className="flex flex-row w-full justify-evenly">
@@ -35,7 +35,7 @@ export default function CadastroAtendimentos(props) {
             </div>
 
             <div className="flex flex-row w-full justify-evenly">
-                <FormInput name='obs' placeholder='Observações' type='text' size='w-3/4' />
+                <FormInput name='observacao' placeholder='Observações' type='text' size='w-3/4' />
                 <FormInput name='data' type='date' value={dataFormatada} size='w-1/4' readonly={true} />
             </div>
 
