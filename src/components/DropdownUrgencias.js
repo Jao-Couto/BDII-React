@@ -28,8 +28,9 @@ export default function DropdownUrgencias(props) {
             className={"p-2 rounded-sm m-1 border border-gray-200 " + props.size}
             style={{ backgroundColor: color }}
             onChange={changeColor}
+            value={1}
         >
-            <option value="" selected disabled style={{ backgroundColor: "white" }}>
+            <option value={1} disabled style={{ backgroundColor: "white" }}>
                 Urgência
             </option>
             {urgencias.map((item) => {
