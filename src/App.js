@@ -11,7 +11,6 @@ import {
 } from "react-router-dom";
 import Atendimentos from "./components/Atendimentos";
 import CadastroUsuario from "./components/CadastroUsuario";
-import { useState } from "react/cjs/react.development";
 import Button from "./components/Button";
 import DropdownMenu from "./components/DropdownMenu";
 import useLocalStorage from "./services/useLocalStorage";
@@ -22,8 +21,6 @@ function App() {
 
   const [isLogin, setLogin] = useLocalStorage("isLogged", false);
   const [isAtendente, setIsAtendente] = useLocalStorage("isAtendente", false);
-
-  const [table, setTable] = useState("atendente");
 
   function PrivateRoute({ children, ...rest }) {
     return (
