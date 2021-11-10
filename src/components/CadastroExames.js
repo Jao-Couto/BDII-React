@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import 'jquery-mask-plugin/dist/jquery.mask.min';
 import examesService from '../services/examesService';

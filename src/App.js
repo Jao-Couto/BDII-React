@@ -16,6 +16,7 @@ import Button from "./components/Button";
 import DropdownMenu from "./components/DropdownMenu";
 import useLocalStorage from "./services/useLocalStorage";
 import CadastroExames from "./components/CadastroExames";
+import CadastroAtendimentos from "./components/CadastroAtendimento";
 
 function App() {
 
@@ -134,6 +135,7 @@ function App() {
             </PrivateRoute>
             {/*Atendente*/}
             <PrivateRoute path="/add-atendimento">
+              <CadastroAtendimentos></CadastroAtendimentos>
             </PrivateRoute>
             <PrivateRoute path="/cadastrar/medico">
               <CadastroUsuario type="medico" />

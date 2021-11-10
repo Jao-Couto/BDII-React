@@ -3,21 +3,18 @@ import axios from "axios"
 class AtendimentosService {
 
 
-    async cadastrarAtendimentos(data) {
-
-        return axios({
-            url: "http://localhost:5000/atendimentos/cadastrar",
-            method: "POST",
-            timeout: 5000,
-            data: data,
-            header: {
-                Accept: 'application/json'
-            }
-        }).then((response) => {
-            return Promise.resolve(response)
-        }).catch((error) => {
-            return Promise.reject(error)
-        })
+    async CadastrarAtendimentos(e, url) {
+        e.preventDefault();
+        let data = new FormData(e.target);
+        await axios
+            .post(`http://localhost:5000/${url}`, data, {
+                headers: { "content-type": "multipart/form-data" },
+            })
+            .then((response) => {
+                if (response.data === "1") console.log("Cadastrado com sucesso");
+                else console.log(response.data);
+            })
+            .catch((err) => console.log(err));
     }
 
     async listarAtendimentosAtendente() {
