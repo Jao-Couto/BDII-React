@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
 import $ from "jquery";
 import "jquery-mask-plugin/dist/jquery.mask.min";
 import FormInput from "./FormInput";

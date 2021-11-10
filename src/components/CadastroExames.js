@@ -12,8 +12,9 @@ export default function CadastroExames(props) {
 
         examesService.cadastrarExames(data)
             .then((response) => {
+                console.log(response)
                 setNome('')
-                if (response.data.affectedRows == 1)
+                if (response.data.affectedRows === 1)
                     alert("Cadastrado com sucesso!!");
                 else
                     alert("Erro ao cadastrar!!");
@@ -30,10 +31,9 @@ export default function CadastroExames(props) {
     const [nome, setNome] = useState('');
 
     var title = 'Cadastro de Exame';
-    var url = 'cadastro/exames';
 
     return (
-        <form className="container flex flex-col h-auto lg:w-5/12 sm:w-full bg-white rounded-md p-5" onSubmit={handleSubmitForm} encType="multipart/form-data">
+        <form className="container flex flex-col h-auto w-full lg:w-8/12  bg-white rounded-md p-5" onSubmit={handleSubmitForm} encType="multipart/form-data">
             <h1 className='text-start text-xl font-bold'>{title}</h1>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
