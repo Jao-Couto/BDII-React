@@ -20,6 +20,8 @@ export default function Login(params) {
           params.valida(true);
           let userType = response.data.mensagem;
           params.tipoUsuario(userType === 'Atendente');
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('email', response.data.email);
           setRedirect(true);
         } else {
           console.log("Usuario n encontrado");
