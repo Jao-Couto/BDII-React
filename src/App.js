@@ -14,22 +14,12 @@ import CadastroUsuario from "./components/CadastroUsuario";
 import { useState } from "react/cjs/react.development";
 import Button from "./components/Button";
 import DropdownMenu from "./components/DropdownMenu";
+import useLocalStorage from "./services/useLocalStorage";
 
 function App() {
-  const useStateWithLocalStorage = (localStorageKey) => {
-    const [value, setValue] = React.useState(
-      localStorage.getItem(localStorageKey) || ""
-    );
 
-    React.useEffect(() => {
-      localStorage.setItem(localStorageKey, value);
-    }, [localStorageKey, value]);
-
-    return [value, setValue];
-  };
-
-  const [isLogin, setLogin] = useStateWithLocalStorage(false);
-  const [isAtendente, setIsAtendente] = useStateWithLocalStorage(false);
+  const [isLogin, setLogin] = useLocalStorage("isLogged", false);
+  const [isAtendente, setIsAtendente] = useLocalStorage("isAtendente", false);
 
   const [table, setTable] = useState("atendente");
 
@@ -144,15 +134,17 @@ function App() {
               <Login
                 valida={setLogin}
                 tipoUsuario={setIsAtendente}
-                table={setTable}
               />
             </Route>
             {/*Médico*/}
             <PrivateRoute path="/medico/exames"></PrivateRoute>
             <PrivateRoute path="/medico/plantao"></PrivateRoute>
-            <PrivateRoute path="/medico/"></PrivateRoute>
+            <PrivateRoute path="/medico/">
+              <Atendimentos/>
+            </PrivateRoute>
             {/*Atendente*/}
-            <PrivateRoute path="/add-atendimento"></PrivateRoute>
+            <PrivateRoute path="/add-atendimento">
+            </PrivateRoute>
             <PrivateRoute path="/cadastrar/medico">
               <CadastroUsuario type="medico" />
             </PrivateRoute>
@@ -166,7 +158,7 @@ function App() {
             <PrivateRoute path="/usuarios/medicos"></PrivateRoute>
             <PrivateRoute path="/usuarios/pacientes"></PrivateRoute>
             <PrivateRoute path="/">
-              <Atendimentos colunas={table} />
+              <Atendimentos isAtendente={isAtendente} />
             </PrivateRoute>
           </Switch>
         </div>

@@ -109,9 +109,9 @@ export default function CadastroUsuario(props) {
       >
         <h1 className="text-start text-xl font-bold">{title}</h1>
 
-        <div className="flex flex-row w-full justify-evenly pt-2">
-          <FormInput name='email' placeholder='Email' type='text' size='w-3/5'/>
-          <PasswordInput size="w-2/5"/>
+        <div className="flex flex-row w-full pt-2">
+          <FormInput name='email' placeholder='Email' type='text' size={(props.type === 'paciente' ? 'w-full' : "w-3/5")}/>
+          {(props.type === 'paciente' ? '' : <PasswordInput size="w-2/5"/>)}
         </div>
 
         <div className="flex flex-row w-full justify-evenly pt-2">

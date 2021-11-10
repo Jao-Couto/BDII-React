@@ -8,7 +8,9 @@ export default function Atendimentos(props) {
   const [atendimentos, setAtendimentos] = useState([]);
 
   useEffect(() => {
-    if (props.colunas === "atendente") {
+
+    if (props.isAtendente) {
+
       setColumn([
         {
           name: "Senha",
@@ -31,21 +33,21 @@ export default function Atendimentos(props) {
         .listarAtendimentosAtendente()
         .then((response) => {
           let dados = response.data;
-          dados.foreach((elem, ind) => {
+          console.log(dados);
+          dados.forEach((elem, ind) => {
             let data = new Date(elem["data_hora"]);
             let dataFormat = data.toLocaleString('pt-BR', { timeZone: 'UTC' });
             dados[ind]["data_hora"] = dataFormat;
           });
 
           setAtendimentos(dados);
+
           console.log("Atendimentos listados com sucesso");
         })
         .catch((error) => {
           console.log(error);
         });
-    }
-
-    if (props.colunas === "medico") {
+    } else{
       setColumn([
         {
           name: "Nome",
@@ -77,7 +79,7 @@ export default function Atendimentos(props) {
         .listarAtendimentosMedico()
         .then((response) => {
           let dados = response.data;
-          dados.foreach((elem, ind) => {
+          dados.forEach((elem, ind) => {
             let data = new Date(elem["data_hora"]);
             let dataFormat = data.toLocaleString('pt-BR', { timeZone: 'UTC' });
             dados[ind]["data_hora"] = dataFormat;
@@ -90,7 +92,7 @@ export default function Atendimentos(props) {
           console.log(error);
         });
     }
-  }, [props.colunas]);
+  }, [props.isAtendente]);
 
   const handleChange = ({ selectedRows }) => {
     // You can set state or dispatch with something like Redux so we can use the retrieved data

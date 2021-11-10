@@ -18,9 +18,8 @@ export default function Login(params) {
         if (response.data.status) {
           console.log("Logado com suceeso");
           params.valida(true);
-          let medico = response.data.mensagem === "Médico";
-          params.tipoUsuario(medico);
-          params.table(medico ? "medico" : "atendente");
+          let userType = response.data.mensagem;
+          params.tipoUsuario(userType === 'Atendente');
           setRedirect(true);
         } else {
           console.log("Usuario n encontrado");
@@ -39,8 +38,8 @@ export default function Login(params) {
   };
 
   return (
-    <main className="container flex flex-col h-96 lg:w-5/12 sm:w-full bg-gradient-to-b  from-blue-600 to-blue-400 rounded-md">
-      <h1 className="text-5xl text-center mt-5 text-white">Login</h1>
+    <main className="container flex flex-col h-96 lg:w-5/12 sm:w-full  rounded-md">
+      <h1 className="text-5xl text-center mt-5 ">Login</h1>
       <form
         className="flex flex-col p-6 justify-evenly items-center h-full"
         onSubmit={handleSubmit}
