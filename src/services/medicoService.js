@@ -50,6 +50,67 @@ class MedicoService {
       throw error;
     }
   }
+
+  async getMedico() {
+    try {
+      const token = await localStorage.getItem("token");
+      const getMedico = await axios({
+        url: `http://localhost:5000/medicos/get/${localStorage.getItem(
+          "email"
+        )}:${token}`,
+        method: "GET",
+        timeout: 5000,
+        header: {
+          Accept: "application/json",
+        },
+      });
+      return getMedico;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async listarPlantao() {
+    try {
+      const crm = await (await this.getMedico()).data.crm;
+      const token = await localStorage.getItem("token");
+      const plantoes = await axios({
+        url: `http://localhost:5000/plantao/listar/${crm}:${token}`,
+        method: "GET",
+        timeout: 5000,
+        header: {
+          Accept: "application/json",
+        },
+      });
+      return plantoes;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async adicionarPlantao(dataEntrada, dataSaida) {
+    try {
+      const crm = await (await this.getMedico()).data.crm;
+      const token = await localStorage.getItem("token");
+      const addPlantao = await axios({
+        url: "http://localhost:5000/plantao/add",
+        method: "POST",
+        timeout: 5000,
+        data: {
+          crm: crm,
+          token: token,
+          dt_hr_ent: dataEntrada,
+          dt_hr_sai: dataSaida,
+        },
+        header: {
+          Accept: "application/json",
+        },
+      });
+      return addPlantao;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 const medicoService = new MedicoService();

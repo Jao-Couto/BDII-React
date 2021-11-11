@@ -17,6 +17,7 @@ import useLocalStorage from "./services/useLocalStorage";
 import CadastroExames from "./components/CadastroExames";
 import CadastroAtendimentos from "./components/CadastroAtendimento";
 import Exames from "./components/Exames";
+import Plantao from "./components/Plantao";
 
 function App() {
 
@@ -134,7 +135,9 @@ function App() {
             <PrivateRoute path="/medico/exames">
               <Exames />
             </PrivateRoute>
-            <PrivateRoute path="/medico/plantao"></PrivateRoute>
+            <PrivateRoute path="/medico/plantao">
+              <Plantao />
+            </PrivateRoute>
             <PrivateRoute path="/medico/">
               <Atendimentos />
             </PrivateRoute>
