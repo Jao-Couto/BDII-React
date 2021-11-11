@@ -54,7 +54,7 @@ function App() {
         <div className="flex flex-row p-3 w-full justify-between">
 
           {isLogin ? (<>
-            <div className="w-full flex">
+            <div className="w-full flex flex-wrap">
               {!isAtendente ? (
                 <>
                   <Link to="/medico/" style={{ textDecoration: "none" }}>
