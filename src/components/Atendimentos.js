@@ -47,7 +47,7 @@ export default function Atendimentos(props) {
         .catch((error) => {
           console.log(error);
         });
-    } else{
+    } else {
       setColumn([
         {
           name: "Nome",
@@ -79,6 +79,7 @@ export default function Atendimentos(props) {
         .listarAtendimentosMedico()
         .then((response) => {
           let dados = response.data;
+
           dados.forEach((elem, ind) => {
             let data = new Date(elem["data_hora"]);
             let dataFormat = data.toLocaleString('pt-BR', { timeZone: 'UTC' });
