@@ -19,10 +19,7 @@ export default function App() {
     useEffect(() => {
         pacienteService.listarPacientesSelect()
             .then((response) => {
-                console.log(response.data);
                 setItems(response.data)
-                console.log("items");
-                console.log(items);
             })
             .catch((error) => {
                 console.log(error);
