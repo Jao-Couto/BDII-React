@@ -10,23 +10,50 @@ export default function CadastroAtendimentos(props) {
 
     useEffect(() => {
         $("#cpf_atendente").mask("000.000.000-00", { reverse: true });
+        $("#cpf_paciente").mask("000.000.000-00", { reverse: true });
+
+        $("#cpf_paciente").keyup(function () {
+            $("#cpf_paciente").removeClass("border-red-800")
+        })
+
     }, []);
+
+
+
+    const submit = ((e) => {
+        e.preventDefault();
+        let data = new FormData(e.target);
+        atendimentosService.CadastrarAtendimentos(data)
+            .then((response) => {
+                if (response.data == "1") alert("Cadastrado com sucesso");
+                else if (response.data == "2") {
+                    $("#cpf_paciente").addClass("border-red-800")
+                }
+                else
+                    console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+
+            })
+    })
 
     var title = "Adicionar Atendimento";
     var data = new Date();
     var dataFormatada = data.getFullYear() + "-" + data.getMonth() + '-' + data.getDate()
-    console.log(dataFormatada);
     return (
         <form
             className="container flex flex-col h-auto lg:w-8/12 sm:w-full bg-white rounded-md p-5"
-            onSubmit={(e) => { atendimentosService.CadastrarAtendimentos(e, "atendimentos/cadastrar") }}
+            onSubmit={(e) => {
+                submit(e)
+            }}
             encType="multipart/form-data"
         >
             <h1 className="text-start text-xl font-bold">{title}</h1>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
                 <FormInput name='cpf_atendente' placeholder='CPF Atendente' type='text' size='w-1/2' />
-                <DropdownSearchPacientes />
+                <FormInput name='cpf_paciente' placeholder='CPF Paciente' type='text' size='w-1/2' />
             </div>
 
             <div className="flex flex-row w-full justify-evenly">
