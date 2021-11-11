@@ -15,18 +15,22 @@ export default function Atendimentos(props) {
         {
           name: "Senha",
           selector: (row) => row.codigo,
+          sortable: true,
         },
         {
           name: "Nome",
           selector: (row) => row.nome,
+          sortable: true,
         },
         {
           name: "Urgência",
           selector: (row) => row.urgencia,
+          sortable: true,
         },
         {
           name: "Data",
           selector: (row) => row.data_hora,
+          sortable: true,
         },
       ]);
       atendimentosService
@@ -52,6 +56,7 @@ export default function Atendimentos(props) {
         {
           name: "Nome",
           selector: (row) => row.nome,
+          sortable: true,
         },
         {
           name: "Temperatura °C",
@@ -68,10 +73,12 @@ export default function Atendimentos(props) {
         {
           name: "Urgência",
           selector: (row) => row.urgencia,
+          sortable: true,
         },
         {
           name: "Data",
           selector: (row) => row.data_hora,
+          sortable: true,
         },
       ]);
 
