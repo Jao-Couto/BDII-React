@@ -5,6 +5,7 @@ class CadastroUsuarioService {
     async CadastrarUsuarios(e, url) {
         e.preventDefault();
         let data = new FormData(e.target);
+        data.set('salario', parseFloat(data.get('salario')))
         console.log(data.get("salario"));
         await axios
           .post(`http://localhost:5000/${url}`, data, {

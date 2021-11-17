@@ -15,7 +15,7 @@ export default function CadastroUsuario(props) {
   useEffect(() => {
     $("#cpf").mask("000.000.000-00", { reverse: true });
     $("#cep").mask("00000-000");
-    $("#salario").mask("###0.0", { reverse: true });
+    $("#salario").mask("###0.00", { reverse: true });
     $("#rg").mask("00.000.000-0", { reverse: true });
   }, []);
 
@@ -41,7 +41,7 @@ export default function CadastroUsuario(props) {
             <FormInput name="especializacao" type="text" placeholder="Especialização" size="w-1/2" />
           </div>
           <div className="flex flex-row w-full justify-evenly items-center pt-2">
-            <FormInput name='salario' placeholder="Salário" type="number" size="w-1/4" />
+            <FormInput name='salario' placeholder="Salário" type="text" size="w-1/4" />
             <div className="flex w-1/2 text-center">
               <FormInput name="hor_entrad" type="time" placeholder="Horario de Entrada" size="w-full" />
               <FormInput name="hor_saida" type="time" placeholder="Horario de Saida" size="w-full" />
@@ -69,7 +69,7 @@ export default function CadastroUsuario(props) {
             </span>
           </div>
           <div className="m-1 w-full">
-            <FormInput name='salario' placeholder="Salário" type="number" size="w-full ml-0" />
+            <FormInput name='salario' placeholder="Salário" type="text" size="w-full ml-0" />
           </div>
         </div>
       );
@@ -89,7 +89,7 @@ export default function CadastroUsuario(props) {
             placeholder="Plano"
             required
           >
-            <option value="...">...</option>
+            <option value="Unimed">Unimed</option>
           </select>
         </div>
       );
