@@ -40,7 +40,7 @@ function App() {
           ) : (
               <Redirect
                 to={{
-                  pathname: "/",
+                  pathname: "/login",
                 }}
               />
             )
