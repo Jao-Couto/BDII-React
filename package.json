@@ -19,6 +19,7 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "react-select-search": "^3.0.8",
+    "react-tabs": "^3.2.3",
     "styled-components": "^5.3.1",
     "web-vitals": "^1.1.2"
   },

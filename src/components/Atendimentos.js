@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { Link, Redirect } from "react-router-dom";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useState } from "react/cjs/react.development";
 import atendimentosService from "../services/atendimentosService";
 import Atendendo from "./Atendento";
 
 export default function Atendimentos(props) {
   const [column, setColumn] = useState([]);
-  const [atendimentos, setAtendimentos] = useState([]);
+  const [filaAtendimentos, setFilaAtendimentos] = useState([]);
+  const [EmAtendimento, setEmAtendimento] = useState([]);
+  const [atendimentosConcluidos, setAtendimentosConcluidos] = useState([]);
   const [atendendo, setAtendendo] = useState([])
 
   useEffect(() => {
@@ -47,9 +50,10 @@ export default function Atendimentos(props) {
             dados[ind]["data_hora"] = dataFormat;
           });
 
-          setAtendimentos(dados);
+          setFilaAtendimentos(dados.filter((e)=>{return e.status === 1}))
+          setEmAtendimento(dados.filter((e)=>{return e.status === 2}))
+          setAtendimentosConcluidos(dados.filter((e)=>{return e.status === 3}))
 
-          console.log("Atendimentos listados com sucesso");
         })
         .catch((error) => {
           console.log(error);
@@ -96,7 +100,12 @@ export default function Atendimentos(props) {
             dados[ind]["data_hora"] = dataFormat;
           });
 
-          setAtendimentos(dados);
+          setFilaAtendimentos(dados.filter((e)=>{return e.status === 1}))
+          setEmAtendimento(dados.filter((e)=>{return e.status === 2}))
+          setAtendimentosConcluidos(dados.filter((e)=>{return e.status === 3}))
+
+          console.log(dados);
+
           console.log("Atendimentos listados com sucesso");
         })
         .catch((error) => {
@@ -111,19 +120,49 @@ export default function Atendimentos(props) {
   };
 
 
-  if (atendendo.length == 0)
+  if (atendendo.length === 0)
     return (
-      <div className="flex items-center flex-col justify-center h-full w-10/12 bg-white">
-        <h1 className="text-5xl text-center mb-5">Fila de atendimento</h1>
-        <DataTable
-          columns={column}
-          data={atendimentos}
-          pagination
-          onRowClicked={handleChange}
-          highlightOnHover
-          striped
-        />
-      </div>
+
+      <Tabs className="flex flex-col h-full w-10/12 bg-white text-xl">
+        <TabList className="flex pb-3">
+          <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Fila de Atendimento</Tab>
+          <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Em Atendimento</Tab>
+          <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Concluidos</Tab>
+        </TabList>
+  
+        <TabPanel className="w-full justify-center items-center">
+          <DataTable
+            columns={column}
+            data={filaAtendimentos}
+            pagination
+            onRowClicked={handleChange}
+            highlightOnHover
+            striped
+          />
+        </TabPanel>
+        <TabPanel className="w-full justify-center items-center">
+          <DataTable
+            columns={column}
+            data={EmAtendimento}
+            pagination
+            onRowClicked={handleChange}
+            highlightOnHover
+            striped
+          />
+        </TabPanel>
+        <TabPanel className="w-full justify-center items-center">
+          <DataTable
+            columns={column}
+            data={atendimentosConcluidos}
+            pagination
+            onRowClicked={handleChange}
+            highlightOnHover
+            striped
+          />
+        </TabPanel>
+      
+    </Tabs>
+
     );
   else {
     console.log(atendendo);
