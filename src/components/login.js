@@ -22,6 +22,7 @@ export default function Login(params) {
           params.tipoUsuario(userType === 'Atendente');
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('email', response.data.email);
+          localStorage.setItem('crm', response.data.crm);
           setRedirect(true);
         } else {
           console.log("Usuario n encontrado");
@@ -46,8 +47,8 @@ export default function Login(params) {
         className="flex flex-col p-6 justify-evenly items-center h-full"
         onSubmit={handleSubmit}
       >
-        <FormInput name="email" placeholder="Email" size="w-2/3"/>
-        <PasswordInput size="w-2/3"/>
+        <FormInput name="email" placeholder="Email" size="w-2/3" />
+        <PasswordInput size="w-2/3" />
         {redirect ? <Redirect to="/" /> : null}
         <input
           type="submit"
