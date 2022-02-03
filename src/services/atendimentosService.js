@@ -16,6 +16,20 @@ class AtendimentosService {
         })
     }
 
+    async UpdateStatus(data) {
+        return axios({
+            url: "http://localhost:5000/atendimentos/updateStatus",
+            method: "POST",
+            timeout: 5000,
+            data: data,
+            headers: { Accept: 'application/json' }
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+            return Promise.reject(error)
+        })
+    }
+
     async listarAtendimentosAtendente() {
         return axios({
             url: "http://localhost:5000/atendimentos/listarAtendente",

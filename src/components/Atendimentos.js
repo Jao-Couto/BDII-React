@@ -3,12 +3,14 @@ import DataTable from "react-data-table-component";
 import { Link, Redirect } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import atendimentosService from "../services/atendimentosService";
+import medicoAtendeService from "../services/medicoAtendeService";
 import Atendendo from "./Atendento";
 
 export default function Atendimentos(props) {
   const [column, setColumn] = useState([]);
   const [atendimentos, setAtendimentos] = useState([]);
   const [atendendo, setAtendendo] = useState([])
+  const [codigoMA, setCodigoMA] = useState('')
 
   useEffect(() => {
 
@@ -107,7 +109,32 @@ export default function Atendimentos(props) {
 
   const handleChange = (rowData) => {
     console.log("Selected Rows: ", rowData);
-    setAtendendo(rowData)
+    let data = {
+      "cod_atendimento": rowData.codigo,
+      "crm": localStorage.getItem('crm')
+    }
+    medicoAtendeService.cadastrarMedicoAtende(data)
+      .then(response => {
+        console.log('Medico atendendo');
+        console.log(response.data);
+        setCodigoMA(response.data)
+        setAtendendo(rowData)
+      })
+      .catch(error => {
+        console.log('Error medico atender: ' + error);
+      })
+
+    data = {
+      "codigo": rowData.codigo,
+      "status": 2
+    }
+    atendimentosService.UpdateStatus(data)
+      .then(response => {
+        console.log('Status atendendo');
+      })
+      .catch(error => {
+        console.log('Status error: ' + error);
+      })
   };
 
 
@@ -128,6 +155,6 @@ export default function Atendimentos(props) {
   else {
     console.log(atendendo);
 
-    return (<Redirect to={{ pathname: '/medico/atendendo', state: { linha: atendendo } }} ></Redirect>)
+    return (<Redirect to={{ pathname: '/medico/atendendo', state: { linha: atendendo, ma: codigoMA } }} ></Redirect>)
   }
 }
