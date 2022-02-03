@@ -7,6 +7,10 @@ import atendimentosService from "../services/atendimentosService";
 import medicoAtendeService from "../services/medicoAtendeService";
 import Atendendo from "./Atendento";
 
+const Concluido = 3;
+const EmAndamento = 2;
+const NaFila = 1;
+
 export default function Atendimentos(props) {
   const [column, setColumn] = useState([]);
   const [filaAtendimentos, setFilaAtendimentos] = useState([]);
@@ -52,9 +56,9 @@ export default function Atendimentos(props) {
             dados[ind]["data_hora"] = dataFormat;
           });
 
-          setFilaAtendimentos(dados.filter((e)=>{return e.status === 1}))
-          setEmAtendimento(dados.filter((e)=>{return e.status === 2}))
-          setAtendimentosConcluidos(dados.filter((e)=>{return e.status === 3}))
+          setFilaAtendimentos(dados.filter((e)=>{return e.status === NaFila}))
+          setEmAtendimento(dados.filter((e)=>{return e.status === EmAndamento}))
+          setAtendimentosConcluidos(dados.filter((e)=>{return e.status === Concluido}))
 
         })
         .catch((error) => {
@@ -102,9 +106,9 @@ export default function Atendimentos(props) {
             dados[ind]["data_hora"] = dataFormat;
           });
 
-          setFilaAtendimentos(dados.filter((e)=>{return e.status === 1}))
-          setEmAtendimento(dados.filter((e)=>{return e.status === 2}))
-          setAtendimentosConcluidos(dados.filter((e)=>{return e.status === 3}))
+          setFilaAtendimentos(dados.filter((e)=>{return e.status === NaFila}))
+          setEmAtendimento(dados.filter((e)=>{return e.status === EmAndamento}))
+          setAtendimentosConcluidos(dados.filter((e)=>{return e.status === Concluido}))
 
           console.log(dados);
 
@@ -117,7 +121,9 @@ export default function Atendimentos(props) {
   }, [props.isAtendente]);
 
   const handleChange = (rowData) => {
-    console.log("Selected Rows: ", rowData);
+
+    if(rowData.status !== Concluido && !props.isAtendente){
+      console.log("Selected Rows: ", rowData);
     let data = {
       "cod_atendimento": rowData.codigo,
       "crm": localStorage.getItem('crm')
@@ -144,6 +150,9 @@ export default function Atendimentos(props) {
       .catch(error => {
         console.log('Status error: ' + error);
       })
+    }
+
+    
   };
 
 
