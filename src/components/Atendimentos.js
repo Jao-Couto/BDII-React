@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
+import { Link, Redirect } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import atendimentosService from "../services/atendimentosService";
+import Atendendo from "./Atendento";
 
 export default function Atendimentos(props) {
   const [column, setColumn] = useState([]);
   const [atendimentos, setAtendimentos] = useState([]);
+  const [atendendo, setAtendendo] = useState([])
 
   useEffect(() => {
 
@@ -102,23 +105,29 @@ export default function Atendimentos(props) {
     }
   }, [props.isAtendente]);
 
-  const handleChange = ({ selectedRows }) => {
-    // You can set state or dispatch with something like Redux so we can use the retrieved data
-    console.log("Selected Rows: ", selectedRows);
+  const handleChange = (rowData) => {
+    console.log("Selected Rows: ", rowData);
+    setAtendendo(rowData)
   };
 
-  return (
-    <div className="flex items-center flex-col justify-center h-full w-10/12 bg-white">
-      <h1 className="text-5xl text-center mb-5">Fila de atendimento</h1>
-      <DataTable
-        columns={column}
-        data={atendimentos}
-        selectableRows
-        pagination
-        onSelectedRowsChange={handleChange}
-        highlightOnHover
-        striped
-      />
-    </div>
-  );
+
+  if (atendendo.length == 0)
+    return (
+      <div className="flex items-center flex-col justify-center h-full w-10/12 bg-white">
+        <h1 className="text-5xl text-center mb-5">Fila de atendimento</h1>
+        <DataTable
+          columns={column}
+          data={atendimentos}
+          pagination
+          onRowClicked={handleChange}
+          highlightOnHover
+          striped
+        />
+      </div>
+    );
+  else {
+    console.log(atendendo);
+
+    return (<Redirect to={{ pathname: '/medico/atendendo', state: { linha: atendendo } }} ></Redirect>)
+  }
 }

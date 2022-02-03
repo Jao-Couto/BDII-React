@@ -6,6 +6,7 @@ import DropdownUrgencias from "./DropdownUrgencias";
 import atendimentosService from "../services/atendimentosService";
 import atendenteService from "../services/atendenteService";
 import { useState } from "react/cjs/react.development";
+import DropdownSearchPacientes from "./DropdownSearchPacientes";
 
 export default function CadastroAtendimentos(props) {
 

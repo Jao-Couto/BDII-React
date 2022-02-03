@@ -18,6 +18,7 @@ import CadastroExames from "./components/CadastroExames";
 import CadastroAtendimentos from "./components/CadastroAtendimento";
 import Exames from "./components/Exames";
 import Plantao from "./components/Plantao";
+import Atendendo from "./components/Atendento";
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
   }
 
   function PrivateRoute({ children, ...rest }) {
+    console.log(rest.location.state);
     return (
       <Route
         {...rest}
@@ -38,16 +40,17 @@ function App() {
           isLogin ? (
             children
           ) : (
-              <Redirect
-                to={{
-                  pathname: "/login",
-                }}
-              />
-            )
+            <Redirect
+              to={{
+                pathname: "/login",
+              }}
+            />
+          )
         }
       />
     );
   }
+
 
   return (
     <div className="flex flex-col items-center h-screen">
@@ -69,53 +72,53 @@ function App() {
                   </Link>
                 </>
               ) : (
-                  <>
-                    <Link to="/" style={{ textDecoration: "none" }}>
-                      <Button name="Atendimentos" icon={<FaClipboardList size="24" />} id="atnd" styles="min-w-navbar-btn" />
-                    </Link>
-                    <Link to="/add-atendimento" style={{ textDecoration: "none" }}>
-                      <Button name="Adicionar Atendimento" icon={<FaFileMedical size="24" />} id="atndAdd" styles="min-w-navbar-btn" />
-                    </Link>
-                    <DropdownMenu
-                      id="cadastros"
-                      name="Cadastros"
-                      icon={<FaUserPlus size="24" />}
-                      styles="min-w-navbar-btn"
-                      options={[
-                        { name: "Medico", route: "/cadastrar/medico", icon: <FaUserMd size="18" /> },
-                        { name: "Paciente", route: "/cadastrar/paciente", icon: <FaUserInjured size="18" /> }
-                      ]}
-                    />
-                    <DropdownMenu
-                      id="usuarios"
-                      name="Usuarios"
-                      icon={<FaUsers size="24" />}
-                      styles="min-w-navbar-btn"
-                      options={[
-                        { name: "Atendentes", route: "/usuarios/atendentes", icon: <FaUserAlt size="18" /> },
-                        { name: "Médicos", route: "/usuarios/medicos", icon: <FaUserMd size="18" /> },
-                        { name: "Paciente", route: "/usuarios/pacientes", icon: <FaUserInjured size="18" /> }
-                      ]}
-                    />
-                  </>
-                )}
+                <>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    <Button name="Atendimentos" icon={<FaClipboardList size="24" />} id="atnd" styles="min-w-navbar-btn" />
+                  </Link>
+                  <Link to="/add-atendimento" style={{ textDecoration: "none" }}>
+                    <Button name="Adicionar Atendimento" icon={<FaFileMedical size="24" />} id="atndAdd" styles="min-w-navbar-btn" />
+                  </Link>
+                  <DropdownMenu
+                    id="cadastros"
+                    name="Cadastros"
+                    icon={<FaUserPlus size="24" />}
+                    styles="min-w-navbar-btn"
+                    options={[
+                      { name: "Medico", route: "/cadastrar/medico", icon: <FaUserMd size="18" /> },
+                      { name: "Paciente", route: "/cadastrar/paciente", icon: <FaUserInjured size="18" /> }
+                    ]}
+                  />
+                  <DropdownMenu
+                    id="usuarios"
+                    name="Usuarios"
+                    icon={<FaUsers size="24" />}
+                    styles="min-w-navbar-btn"
+                    options={[
+                      { name: "Atendentes", route: "/usuarios/atendentes", icon: <FaUserAlt size="18" /> },
+                      { name: "Médicos", route: "/usuarios/medicos", icon: <FaUserMd size="18" /> },
+                      { name: "Paciente", route: "/usuarios/pacientes", icon: <FaUserInjured size="18" /> }
+                    ]}
+                  />
+                </>
+              )}
             </div>
             <div className="flex items-end">
               <Button name="Logout" icon={<FaSignOutAlt size="24" />} onClick={() => handleLogout()} color="bg-red-500" styles="rounded-sm text-white cursor-pointer" backdrop="bg-white" />
             </div>
           </>
           ) : (
-              <div className="flex mr-0 ml-auto">
-                <>
-                  <Link to="/login" style={{ textDecoration: "none" }}>
-                    <Button name="Login" icon={<FaSignInAlt size="24" />} styles="min-w-navbar-btn cursor-pointer" />
-                  </Link>
-                  <Link to="/signup" style={{ textDecoration: "none" }}>
-                    <Button name="Sign Up" icon={<FaUserPlus size="24" />} styles="min-w-navbar-btn cursor-pointer" />
-                  </Link>
-                </>
-              </div>
-            )}
+            <div className="flex mr-0 ml-auto">
+              <>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                  <Button name="Login" icon={<FaSignInAlt size="24" />} styles="min-w-navbar-btn cursor-pointer" />
+                </Link>
+                <Link to="/signup" style={{ textDecoration: "none" }}>
+                  <Button name="Sign Up" icon={<FaUserPlus size="24" />} styles="min-w-navbar-btn cursor-pointer" />
+                </Link>
+              </>
+            </div>
+          )}
         </div>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -129,7 +132,7 @@ function App() {
               <Login
                 valida={setLogin}
                 tipoUsuario={setIsAtendente}
-              />
+              />''
             </Route>
             {/*Médico*/}
             <PrivateRoute path="/medico/exames">
@@ -138,6 +141,12 @@ function App() {
             <PrivateRoute path="/medico/plantao">
               <Plantao />
             </PrivateRoute>
+            <Route path="/medico/atendendo" render={(props) => (isLogin) ? <Atendendo {...props}></Atendendo> : <Redirect
+              to={{
+                pathname: "/login",
+              }}
+            />}>
+            </Route>
             <PrivateRoute path="/medico/">
               <Atendimentos />
             </PrivateRoute>
@@ -163,6 +172,7 @@ function App() {
             <PrivateRoute path="/">
               <Atendimentos isAtendente={isAtendente} />
             </PrivateRoute>
+
           </Switch>
         </div>
       </Router>

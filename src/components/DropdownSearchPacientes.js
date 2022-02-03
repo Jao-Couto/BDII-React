@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import pacienteService from "../services/pacienteService";
 import { useState } from "react/cjs/react.development";
 
-export default function App() {
+export default function DropdownSearchPacientes() {
     const searchInput = useRef();
     const [items, setItems] = useState([])
     const options = [
