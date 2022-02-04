@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import 'jquery-mask-plugin/dist/jquery.mask.min';
 import examesService from '../services/examesService';
 import SelectSearch from 'react-select-search';
+import "./select-search.css";
 
 export default function SolicitarExames(props) {
     const searchInput = useRef();
@@ -84,7 +85,6 @@ export default function SolicitarExames(props) {
                     placeholder="Selecione um exame"
                     search
                     onChange={handleChange}
-                    className="select-search rounded-sm m-1 h-form-input"
                     required
                 />
             </div>
