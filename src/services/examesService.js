@@ -37,9 +37,9 @@ class ExamesService {
         })
     }
 
-    async listarExames() {
+    async listarExamesSolicitados() {
         return axios({
-            url: "http://localhost:5000/exames/listar",
+            url: "http://localhost:5000/exames/listarExamesSolicitados",
             method: "GET",
             timeout: 5000,
             header: {
@@ -52,9 +52,9 @@ class ExamesService {
         })
     }
 
-    async listarExamesSelect() {
+    async listarTiposDeExames() {
         return axios({
-            url: "http://localhost:5000/exames/listarToSelect",
+            url: "http://localhost:5000/exames/listarTiposDeExames",
             method: "GET",
             timeout: 5000,
             header: {

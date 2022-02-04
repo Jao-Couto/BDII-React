@@ -6,31 +6,64 @@ import Modal from './Modal'
 import CadastroExames from "./CadastroExames";
 
 import { FaSearch } from 'react-icons/fa'
+import { TabList, Tabs, Tab, TabPanel } from "react-tabs";
 
 export default function Exames(){
 
-    const [column, setColumn] = useState([]);
-    const [exames, setExames] = useState([]);
+    const [columnTiposExames, setColumnTiposExames] = useState([]);
+    const [columnExamesSolicitados, setColumnExamesSolicitados] = useState([]);
+    const [tiposExames, setTiposExames] = useState([]);
+    const [examesSolicitados, setExamesSolicitados] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
     const [examesSorted, setExamesSorted] = useState([{}]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(()=>{
 
-        setColumn([
+        setColumnTiposExames([
             {
                 name: 'Codigo',
-                selector: (row) => row.codigo
+                selector: (row) => row.value
             },
             {
                 name: 'Nome',
-                selector: (row) => row.nome
+                selector: (row) => row.name
             }
         ])
 
-        examesService.listarExames().then((dados)=>{
-            console.log(dados);
-            setExames(dados.data);
+        setColumnExamesSolicitados([
+            {
+                name: 'Codigo do Atendimento',
+                selector: (row) => row.cod_atendimento
+            },
+            {
+                name: 'Exame',
+                selector: (row) => row.nome_exame
+            },
+            {
+                name: 'Data',
+                selector: (row) => row.data
+            },
+            {
+                name: 'Descrição',
+                selector: (row) => row.descricao
+            }
+        ])
+
+        examesService.listarTiposDeExames().then((dados)=>{
+            setTiposExames(dados.data);
+        })
+
+        examesService.listarExamesSolicitados().then((dados)=>{
+            console.log(dados.data);
+
+            dados.data.forEach((elem, ind) => {
+                let data = new Date(elem.data);
+                let dataFormat = data.toLocaleString('pt-BR', { timeZone: 'UTC' });
+                elem.data = dataFormat;
+            });
+
+            setExamesSolicitados(dados.data);
         })
 
     },[])
@@ -44,7 +77,7 @@ export default function Exames(){
         let content = e.target.value;
         if(content.length !== 0){
             setIsSearch(true)
-            let searchResult = exames.reduce((aux, data)=>{
+            let searchResult = tiposExames.reduce((aux, data)=>{
                 if(data.nome.toLowerCase().includes(content.toLowerCase()))
                     aux.push(data);
                 return aux;
@@ -55,18 +88,18 @@ export default function Exames(){
         }
 
     }
+    
+    const TiposExamesComponent = 
 
-    return (
       <>
         <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
-            <h1 className="text-5xl text-center mb-5">Lista de Exames</h1>
             <div className='w-full relative justify-center'>
                 <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome do Paciente'/>
                 <FaSearch className='absolute top-7 left-3' size='24px'/>
             </div>
             <DataTable
-                columns={column}
-                data={(isSearch ? examesSorted : exames)}
+                columns={columnTiposExames}
+                data={(isSearch ? examesSorted : tiposExames)}
                 selectableRows
                 pagination
                 onSelectedRowsChange={handleChange}
@@ -86,5 +119,32 @@ export default function Exames(){
                 <CadastroExames/>
             </Modal>
         </>
+    ;
+
+    return (
+
+        <Tabs className="flex flex-col h-full w-10/12 bg-white text-xl">
+            <TabList className="flex pb-3">
+                <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Tipos de Exames</Tab>
+                <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Exames Solicitados</Tab>
+            </TabList>
+    
+            <TabPanel className="w-full justify-center items-center">
+                {TiposExamesComponent}
+            </TabPanel>
+
+            <TabPanel className="w-full justify-center items-center">
+            <DataTable
+                columns={columnExamesSolicitados}
+                data={examesSolicitados}
+                pagination
+                onRowClicked={handleChange}
+                highlightOnHover
+                striped
+            />
+            </TabPanel>
+        
+        </Tabs>
+
     );
 }
