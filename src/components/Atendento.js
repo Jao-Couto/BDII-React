@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AdicionarDiagnostico from "./AdicionarDiagnostico";
 import Button from "./Button";
 import Modal from "./Modal";
-import SolclitarExames from "./SolicitarExames";
+import SolicitarExames from "./SolicitarExames";
 
 export default function Atendendo(props) {
     const [modalExame, setModalExame] = useState(false);
@@ -39,7 +39,7 @@ export default function Atendendo(props) {
             />
 
             <Modal isOpen={modalExame} handleModal={setModalExame}>
-                <SolclitarExames atendimento={props.location.state.linha.codigo} />
+                <SolicitarExames atendimento={props.location.state.linha.codigo} />
             </Modal>
 
             <Modal isOpen={modalDiagnostico} handleModal={setModalDiagnostico}>

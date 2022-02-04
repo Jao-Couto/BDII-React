@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useState } from "react/cjs/react.development";
 import atendimentosService from "../services/atendimentosService";
 import medicoAtendeService from "../services/medicoAtendeService";
-import Atendendo from "./Atendento";
 
 const Concluido = 3;
 const EmAndamento = 2;

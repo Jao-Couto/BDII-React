@@ -3,7 +3,7 @@ import 'jquery-mask-plugin/dist/jquery.mask.min';
 import examesService from '../services/examesService';
 import SelectSearch from 'react-select-search';
 
-export default function SolclitarExames(props) {
+export default function SolicitarExames(props) {
     const searchInput = useRef();
     const [items, setItems] = useState([])
     const options = items;
@@ -11,7 +11,7 @@ export default function SolclitarExames(props) {
     const [descricao, setDescricao] = useState('');
 
     useEffect(() => {
-        examesService.listarExamesSelect()
+        examesService.listarTiposDeExames()
             .then(response => {
                 console.log(response.data)
                 setItems(response.data)
