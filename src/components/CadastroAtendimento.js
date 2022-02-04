@@ -6,7 +6,7 @@ import DropdownUrgencias from "./DropdownUrgencias";
 import atendimentosService from "../services/atendimentosService";
 import atendenteService from "../services/atendenteService";
 import { useState } from "react/cjs/react.development";
-import DropdownSearchPacientes from "./DropdownSearchPacientes";
+//import DropdownSearchPacientes from "./DropdownSearchPacientes";
 
 export default function CadastroAtendimentos(props) {
 
@@ -39,8 +39,8 @@ export default function CadastroAtendimentos(props) {
         let data = new FormData(e.target);
         atendimentosService.CadastrarAtendimentos(data)
             .then((response) => {
-                if (response.data == "1") alert("Cadastrado com sucesso");
-                else if (response.data == "2") {
+                if (response.data === "1") alert("Cadastrado com sucesso");
+                else if (response.data === "2") {
                     $("#cpf_paciente").addClass("border-red-800")
                 }
                 else
@@ -77,7 +77,7 @@ export default function CadastroAtendimentos(props) {
 
             <div className="flex flex-row w-full justify-evenly">
                 <FormInput name='observacao' placeholder='Observações' type='text' size='w-3/4' required={true} />
-                <FormInput name='data' type='datetime-local' value={dataFormatada} size='w-1/4' readonly={true} />
+                <FormInput name='data' type='datetime-local' value={dataFormatada} size='w-1/4'  required={true} />
             </div>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
