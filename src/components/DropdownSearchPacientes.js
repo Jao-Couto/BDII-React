@@ -1,20 +1,14 @@
 
-import "./styles.css"
+import "./select-search.css";
 import SelectSearch from "react-select-search";
 import { useEffect, useRef } from "react";
 import pacienteService from "../services/pacienteService";
 import { useState } from "react/cjs/react.development";
 
-export default function DropdownSearchPacientes() {
+export default function DropdownSearchPacientes(props) {
     const searchInput = useRef();
     const [items, setItems] = useState([])
-    const options = [
-        {
-            type: "group",
-            name: "Pacientes",
-            items: items
-        },
-    ];
+    const options = items
 
     useEffect(() => {
         pacienteService.listarPacientesSelect()
@@ -29,7 +23,7 @@ export default function DropdownSearchPacientes() {
 
     const handleChange = (...args) => {
         // searchInput.current.querySelector("input").value = "";
-        console.log("ARGS:", args[0]);
+        props.setCpfPaciente(args[0])
     };
 
     const handleFilter = (items) => {
@@ -54,10 +48,11 @@ export default function DropdownSearchPacientes() {
             filterOptions={handleFilter}
             value=""
             name="cpf_paciente"
+            id="cpf_paciente"
             placeholder="Selecione um paciente"
             search
+            className="select-search p-2 h-full"
             onChange={handleChange}
-            className="select-search rounded-sm m-1 h-form-input"
         />
     );
 }

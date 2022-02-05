@@ -6,11 +6,14 @@ import DropdownUrgencias from "./DropdownUrgencias";
 import atendimentosService from "../services/atendimentosService";
 import atendenteService from "../services/atendenteService";
 import { useState } from "react/cjs/react.development";
+import DropdownSearchPacientes from "./DropdownSearchPacientes";
 //import DropdownSearchPacientes from "./DropdownSearchPacientes";
 
 export default function CadastroAtendimentos(props) {
 
     const [cpfAtentende, setCpfAtendente] = useState('');
+    const [cpfPaciente, setCpfPaciente] = useState('');
+
 
     useEffect(() => {
         let email = localStorage.getItem('email')
@@ -50,6 +53,7 @@ export default function CadastroAtendimentos(props) {
                 console.log(error);
 
             })
+
     })
 
     var title = "Adicionar Atendimento";
@@ -68,7 +72,8 @@ export default function CadastroAtendimentos(props) {
 
             <div className="flex flex-row w-full justify-evenly pt-2">
                 <FormInput name='cpf_atendente' placeholder='CPF Atendente' type='text' size='w-1/2' value={cpfAtentende} readonly={true} />
-                <FormInput name='cpf_paciente' placeholder='CPF Paciente' type='text' size='w-1/2' />
+                <DropdownSearchPacientes setCpfPaciente={setCpfPaciente}></DropdownSearchPacientes>
+                <FormInput name='cpf_paciente' type='hidden' value={cpfPaciente} />
             </div>
 
             <div className="flex flex-row w-full justify-evenly">
@@ -77,7 +82,7 @@ export default function CadastroAtendimentos(props) {
 
             <div className="flex flex-row w-full justify-evenly">
                 <FormInput name='observacao' placeholder='Observações' type='text' size='w-3/4' required={true} />
-                <FormInput name='data' type='datetime-local' value={dataFormatada} size='w-1/4'  required={true} />
+                <FormInput name='data' type='datetime-local' value={dataFormatada} size='w-1/4' required={true} />
             </div>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
