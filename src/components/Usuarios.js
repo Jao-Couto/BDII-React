@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component"
 import { FaSearch } from "react-icons/fa"
 import usuariosService from "../services/UsuariosServices"
 
-export default function Usuarios(props){
+export default function Usuarios(props) {
 
     let type = props.type
     const [dados, setDados] = useState([])
@@ -11,8 +11,8 @@ export default function Usuarios(props){
     const [dadosSorted, setDadosSorted] = useState([{}]);
     const [isSearch, setIsSearch] = useState(false);
 
-    useEffect(()=>{
-        if(type === 'atendentes'){
+    useEffect(() => {
+        if (type === 'atendentes') {
             setColumns([
                 {
                     name: 'Nome',
@@ -35,9 +35,9 @@ export default function Usuarios(props){
                     selector: (row) => row.email
                 }
             ])
-            usuariosService.listarAtendentes().then((res)=> setDados(res.data))
+            usuariosService.listarAtendentes().then((res) => setDados(res.data))
         }
-        else if(type === 'medicos'){
+        else if (type === 'medicos') {
             setColumns([
                 {
                     name: 'Nome',
@@ -64,9 +64,9 @@ export default function Usuarios(props){
                     selector: (row) => row.email
                 }
             ])
-            usuariosService.listarMedicos().then((res)=> setDados(res.data))
+            usuariosService.listarMedicos().then((res) => setDados(res.data))
         }
-        else{
+        else {
             setColumns([
                 {
                     name: 'Nome',
@@ -88,35 +88,35 @@ export default function Usuarios(props){
                     name: 'Email',
                     selector: (row) => row.email
                 }
-            ])    
-            usuariosService.listarPacientes().then((res)=> setDados(res.data))
+            ])
+            usuariosService.listarPacientes().then((res) => setDados(res.data))
         }
-    },[type])
+    }, [type])
 
 
-    function handleSearch(e){
+    function handleSearch(e) {
         let content = e.target.value;
-        if(content.length !== 0){
+        if (content.length !== 0) {
             setIsSearch(true)
-            let searchResult = dados.reduce((aux, data)=>{
-                if(data.nome.toLowerCase().includes(content.toLowerCase()))
+            let searchResult = dados.reduce((aux, data) => {
+                if (data.nome.toLowerCase().includes(content.toLowerCase()))
                     aux.push(data);
                 return aux;
             }, [])
             setDadosSorted(searchResult)
-        }else{
+        } else {
             setIsSearch(false)
         }
 
     }
 
-    if(type === 'atendentes'){
-        return(
+    if (type === 'atendentes') {
+        return (
             <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
                 <h1 className="text-center text-2xl">Atendentes</h1>
                 <div className='w-full relative justify-center'>
-                    <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome do Exame'/>
-                    <FaSearch className='absolute top-7 left-3' size='24px'/>
+                    <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome' />
+                    <FaSearch className='absolute top-7 left-3' size='24px' />
                 </div>
                 <DataTable
                     columns={columns}
@@ -126,19 +126,19 @@ export default function Usuarios(props){
                     striped
                 />
             </div>
-            
+
         )
 
     }
-    
-    if(type === 'medicos'){
 
-        return(
+    if (type === 'medicos') {
+
+        return (
             <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
                 <h1 className="text-center text-2xl">Médicos</h1>
                 <div className='w-full relative justify-center'>
-                    <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome do Exame'/>
-                    <FaSearch className='absolute top-7 left-3' size='24px'/>
+                    <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome' />
+                    <FaSearch className='absolute top-7 left-3' size='24px' />
                 </div>
                 <DataTable
                     columns={columns}
@@ -148,19 +148,19 @@ export default function Usuarios(props){
                     striped
                 />
             </div>
-            
+
         )
-        
+
     }
 
-    if(type === 'pacientes'){
-    
-        return(
+    if (type === 'pacientes') {
+
+        return (
             <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
                 <h1 className="text-center text-2xl">Pacientes</h1>
                 <div className='w-full relative justify-center'>
-                    <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome do Exame'/>
-                    <FaSearch className='absolute top-7 left-3' size='24px'/>
+                    <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome' />
+                    <FaSearch className='absolute top-7 left-3' size='24px' />
                 </div>
                 <DataTable
                     columns={columns}
@@ -170,7 +170,7 @@ export default function Usuarios(props){
                     striped
                 />
             </div>
-            
+
         )
     }
 }

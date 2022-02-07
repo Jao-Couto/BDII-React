@@ -42,12 +42,10 @@ export default function CadastroAtendimentos(props) {
         let data = new FormData(e.target);
         atendimentosService.CadastrarAtendimentos(data)
             .then((response) => {
-                if (response.data === "1") alert("Cadastrado com sucesso");
-                else if (response.data === "2") {
-                    $("#cpf_paciente").addClass("border-red-800")
+                if (response.data.affectedRows == "1") {
+                    alert("Cadastrado com sucesso");
+                    window.location.reload();
                 }
-                else
-                    console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -57,9 +55,7 @@ export default function CadastroAtendimentos(props) {
     })
 
     var title = "Adicionar Atendimento";
-    var data = new Date();
-    var minutos = (data.getMinutes() < 10) ? '0' + data.getMinutes() : data.getMinutes();
-    var dataFormatada = data.getFullYear() + "-" + (data.getMonth() + 1) + '-' + data.getDate() + 'T' + data.getHours() + ':' + minutos
+
     return (
         <form
             className="container flex flex-col h-auto lg:w-8/12 sm:w-full bg-white rounded-md p-5"
@@ -80,15 +76,16 @@ export default function CadastroAtendimentos(props) {
                 <FormInput name='sintomas' placeholder='Sintomas' type='text' size='w-full' />
             </div>
 
-            <div className="flex flex-row w-full justify-evenly">
-                <FormInput name='observacao' placeholder='Observações' type='text' size='w-3/4' required={true} />
-                <FormInput name='data' type='datetime-local' value={dataFormatada} size='w-1/4' required={true} />
-            </div>
+
 
             <div className="flex flex-row w-full justify-evenly pt-2">
                 <FormInput name='temperatura' type='text' placeholder='Temperatura' size="w-2/5" />
                 <FormInput name='pressao' type='text' placeholder='Pressao' size="w-2/5" />
                 <DropdownUrgencias size="w-2/5" />
+            </div>
+
+            <div className="flex flex-row w-full justify-evenly">
+                <textarea name='observacao' placeholder='Observações' className="resize-none p-2 rounded-sm m-1 border border-gray-200 w-full" rows={4} required={true}></textarea>
             </div>
 
             <input

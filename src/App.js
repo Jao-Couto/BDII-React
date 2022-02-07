@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "./components/login";
+import Login from "./components/Login";
 import { FaUsers, FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt, FaNotesMedical } from "react-icons/fa";
 
 import {
@@ -129,10 +129,14 @@ function App() {
               <CadastroUsuario type="atendente"></CadastroUsuario>
             </Route>
             <Route path="/login">
-              <Login
+              {isLogin ? <Redirect
+                to={{
+                  pathname: "/",
+                }}
+              /> : <Login
                 valida={setLogin}
                 tipoUsuario={setIsAtendente}
-              />''
+              />}
             </Route>
             {/*Médico*/}
             <PrivateRoute path="/medico/exames">
@@ -167,13 +171,13 @@ function App() {
               <CadastroUsuario type="atendente" />
             </PrivateRoute>
             <PrivateRoute path="/usuarios/atendentes">
-              <Usuarios type='atendentes'/>
+              <Usuarios type='atendentes' />
             </PrivateRoute>
             <PrivateRoute path="/usuarios/medicos">
-              <Usuarios type='medicos'/>
+              <Usuarios type='medicos' />
             </PrivateRoute>
             <PrivateRoute path="/usuarios/pacientes">
-              <Usuarios type='pacientes'/>
+              <Usuarios type='pacientes' />
             </PrivateRoute>
             <PrivateRoute path="/">
               <Atendimentos isAtendente={isAtendente} />
