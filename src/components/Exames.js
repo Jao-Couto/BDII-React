@@ -78,7 +78,7 @@ export default function Exames(){
         if(content.length !== 0){
             setIsSearch(true)
             let searchResult = tiposExames.reduce((aux, data)=>{
-                if(data.nome.toLowerCase().includes(content.toLowerCase()))
+                if(data.name.toLowerCase().includes(content.toLowerCase()))
                     aux.push(data);
                 return aux;
             }, [])
