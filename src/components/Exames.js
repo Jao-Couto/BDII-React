@@ -94,7 +94,7 @@ export default function Exames(){
       <>
         <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
             <div className='w-full relative justify-center'>
-                <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome do Paciente'/>
+                <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome do Exame'/>
                 <FaSearch className='absolute top-7 left-3' size='24px'/>
             </div>
             <DataTable

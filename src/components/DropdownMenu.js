@@ -9,7 +9,7 @@ export default function DropdownMenu(props){
     //#TODO Adicionar verificação para uso em outros componentes
     
     return(
-        <div className="flex relative" id={"dropdown-"+props.id} onMouseOver={()=>setOnFocus(true)} onMouseLeave={()=>setOnFocus(false)}>
+        <div className="flex relative z-10" id={"dropdown-"+props.id} onMouseOver={()=>setOnFocus(true)} onMouseLeave={()=>setOnFocus(false)}>
             <Button name={props.name} id={props.id} icon={props.icon ? props.icon : false} styles={props.styles ? props.styles : ''}/>
             {onFocus ? (
                 <ul className="flex flex-col absolute top-full w-full">

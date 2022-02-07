@@ -19,6 +19,7 @@ import CadastroAtendimentos from "./components/CadastroAtendimento";
 import Exames from "./components/Exames";
 import Plantao from "./components/Plantao";
 import Atendendo from "./components/Atendento";
+import Usuarios from "./components/Usuarios";
 
 function App() {
 
@@ -32,7 +33,6 @@ function App() {
   }
 
   function PrivateRoute({ children, ...rest }) {
-    console.log(rest.location.state);
     return (
       <Route
         {...rest}
@@ -166,9 +166,15 @@ function App() {
             <PrivateRoute path="/cadastrar/atendete">
               <CadastroUsuario type="atendente" />
             </PrivateRoute>
-            <PrivateRoute path="/usuarios/atendentes"></PrivateRoute>
-            <PrivateRoute path="/usuarios/medicos"></PrivateRoute>
-            <PrivateRoute path="/usuarios/pacientes"></PrivateRoute>
+            <PrivateRoute path="/usuarios/atendentes">
+              <Usuarios type='atendentes'/>
+            </PrivateRoute>
+            <PrivateRoute path="/usuarios/medicos">
+              <Usuarios type='medicos'/>
+            </PrivateRoute>
+            <PrivateRoute path="/usuarios/pacientes">
+              <Usuarios type='pacientes'/>
+            </PrivateRoute>
             <PrivateRoute path="/">
               <Atendimentos isAtendente={isAtendente} />
             </PrivateRoute>
