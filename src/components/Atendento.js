@@ -30,7 +30,7 @@ export default function Atendendo(props) {
     return (
         <div className="flex items-center flex-col justify-center h-2/4 w-1/2 bg-white border-2 rounded-md">
             <Button
-                name="Solicitar exame"
+                name="Exames"
                 backdrop="bg-white w-10/12 m-2"
                 styles="mr-0 ml-auto text-white"
                 color="bg-blue-600 cursor-pointer"
