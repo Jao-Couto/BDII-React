@@ -36,6 +36,25 @@ class MedicoAtendeService {
     }
   }
 
+  async historicoDiagnostico(data) {
+    try {
+      const cadastro = await axios({
+        url: "http://localhost:5000/medicoAtende/historicoDiagnostico",
+        method: "GET",
+        timeout: 5000,
+        params:{
+          codigo_ma: data
+        },
+        header: {
+          Accept: "application/json",
+        },
+      });
+      return cadastro;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
 
 }
