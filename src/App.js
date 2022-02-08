@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "./components/Login";
-import { FaUsers, FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt, FaNotesMedical } from "react-icons/fa";
+import Login from "./components/login";
+import { FaUsers, FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 
 import {
   BrowserRouter as Router,
@@ -16,7 +16,7 @@ import DropdownMenu from "./components/DropdownMenu";
 import useLocalStorage from "./services/useLocalStorage";
 import CadastroExames from "./components/CadastroExames";
 import CadastroAtendimentos from "./components/CadastroAtendimento";
-import Exames from "./components/Exames";
+import ExamesERemedios from "./components/ExamesERemedios";
 import Plantao from "./components/Plantao";
 import Atendendo from "./components/Atendento";
 import Usuarios from "./components/Usuarios";
@@ -140,7 +140,7 @@ function App() {
             </Route>
             {/*Médico*/}
             <PrivateRoute path="/medico/exames">
-              <Exames />
+              <ExamesERemedios />
             </PrivateRoute>
             <PrivateRoute path="/medico/plantao">
               <Plantao />

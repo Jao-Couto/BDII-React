@@ -25,11 +25,12 @@ export default function Login(params) {
           localStorage.setItem('crm', response.data.crm);
           setRedirect(true);
         } else {
-          console.log("Usuario n encontrado");
+          alert("Usuario não encontrado :/");
           params.valida(false);
         }
       })
       .catch((error) => {
+        alert("Houve um erro com o sistema");
         console.log(error);
       });
   };

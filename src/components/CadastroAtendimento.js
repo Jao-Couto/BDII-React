@@ -76,8 +76,6 @@ export default function CadastroAtendimentos(props) {
                 <FormInput name='sintomas' placeholder='Sintomas' type='text' size='w-full' />
             </div>
 
-
-
             <div className="flex flex-row w-full justify-evenly pt-2">
                 <FormInput name='temperatura' type='text' placeholder='Temperatura' size="w-2/5" />
                 <FormInput name='pressao' type='text' placeholder='Pressao' size="w-2/5" />

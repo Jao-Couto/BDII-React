@@ -157,7 +157,7 @@ export default function Atendimentos(props) {
 
   if (atendendo.length === 0)
     return (
-      <Tabs className="flex flex-col h-full w-10/12 bg-white text-xl">
+      <Tabs className="flex flex-col h-3/4 w-10/12 bg-white text-xl">
         <TabList className="flex pb-3">
           <Tab className="px-3 rounded-sm cursor-pointer" selectedClassName="border-b-2 bg-gray-100 ">Fila de Atendimento</Tab>
           <Tab className="px-3 rounded-sm cursor-pointer" selectedClassName="border-b-2 bg-gray-100 ">Em Atendimento</Tab>
