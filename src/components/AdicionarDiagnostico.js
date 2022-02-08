@@ -1,27 +1,47 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'jquery-mask-plugin/dist/jquery.mask.min';
-import examesService from '../services/examesService';
 import medicoAtendeService from '../services/medicoAtendeService';
+import DataTable from 'react-data-table-component';
 
 export default function AdicionarDiagnostico(props) {
     const [diagnostico, setDiagnostico] = useState('');
-
+    const [dados, setDados] = useState([]);
+    const [columns, setColumns] = useState([]);
+    let codigoMa = props.codigoMa;
 
     async function handleSubmitForm(e) {
+
         e.preventDefault()
         let data = {
             "codigo_ma": props.codigoMa,
             "diagnostico": diagnostico
         }
+
+        let aux = dados;
+        aux.push({"diagnostico": diagnostico});
+        setDados(aux);
+
         medicoAtendeService.cadastrarDiagnostico(data)
             .then(response => {
                 console.log('Cadastrado diagnostico');
+                setDiagnostico('');
             })
             .catch(error => {
                 console.log('Diagnostico ' + error);
             })
     }
 
+    useEffect(()=>{
+        setColumns([
+            {
+                name:'Historico',
+                wrap: true,
+                maxWidth: '350px',
+                selector: row=> `${row.diagnostico}`
+            }
+        ])
+        medicoAtendeService.historicoDiagnostico(codigoMa).then((dados)=>setDados(dados.data))
+    }, [dados, codigoMa])
 
 
 
@@ -34,6 +54,13 @@ export default function AdicionarDiagnostico(props) {
 
             <div className="flex flex-row w-full justify-evenly pt-2">
 
+            </div>
+
+            <div className="h-48 overflow-auto">
+                <DataTable
+                    columns={columns}                    
+                    data={dados}
+                />
             </div>
 
             <div className="flex flex-row w-full justify-evenly pt-2">
