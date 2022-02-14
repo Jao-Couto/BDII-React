@@ -12,11 +12,11 @@ class CadastroUsuarioService {
         headers: { "content-type": "multipart/form-data" },
       })
       .then((response) => {
-        if (response.data.affectedRows == "1") {
-          console.log("Cadastrado com sucesso");
+        if (response.data.status == "1") {
+          alert(response.data.Msg);
           window.location.href = "/";
         }
-        else alert(response.data);
+        else alert(response.data.Msg);
       })
       .catch((err) => console.log(err));
   }
