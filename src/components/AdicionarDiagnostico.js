@@ -25,7 +25,7 @@ export default function AdicionarDiagnostico(props) {
         medicoAtendeService.cadastrarDiagnostico(data)
             .then(response => {
                 console.log('Cadastrado diagnostico');
-                setCount(countCadastroDiagn+1)
+                setCount(countCadastroDiagn + 1)
                 setDiagnostico('');
             })
             .catch(error => {
@@ -42,7 +42,7 @@ export default function AdicionarDiagnostico(props) {
                 selector: row=> `${row.diagnostico}`
             }
         ])
-        medicoAtendeService.historicoDiagnostico(codigoMa).then((res)=>setDados(res.data))
+        medicoAtendeService.historicoDiagnostico(codigoMa).then((res) => setDados(res.data))
     }, [codigoMa, countCadastroDiagn])
 
 

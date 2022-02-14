@@ -53,7 +53,7 @@ function App() {
 
 
   return (
-    <div className="flex flex-col items-center h-screen">
+    <div className="flex flex-col items-center h-screen ">
       <Router>
         <div className="flex flex-row p-3 w-full justify-between">
 
@@ -65,7 +65,7 @@ function App() {
                     <Button name="Atendimentos" icon={<FaClipboardList size="24" />} id="atnd" styles="min-w-navbar-btn" />
                   </Link>
                   <Link to="/medico/exames" style={{ textDecoration: "none" }}>
-                    <Button name="Exames" icon={<FaFileMedicalAlt size="24" />} id="exames" styles="min-w-navbar-btn" />
+                    <Button name="Exames e Remédios" icon={<FaFileMedicalAlt size="24" />} id="exames" styles="min-w-navbar-btn" />
                   </Link>
                   <Link to="/medico/plantao" style={{ textDecoration: "none" }}>
                     <Button name="Plantão" icon={<FaUserClock size="24" />} id="plantao" styles="min-w-navbar-btn" />
