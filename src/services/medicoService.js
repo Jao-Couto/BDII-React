@@ -88,6 +88,22 @@ class MedicoService {
     }
   }
 
+  async listarEspecializacao() {
+    try {
+      const especializacoes = await axios({
+        url: `http://localhost:5000/espec/listar`,
+        method: "GET",
+        timeout: 5000,
+        header: {
+          Accept: "application/json",
+        },
+      });
+      return especializacoes;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async adicionarPlantao(dataEntrada, dataSaida) {
     try {
       const crm = await (await this.getMedico()).data.crm;

@@ -8,6 +8,7 @@ import DateInput from "./DateInput";
 import DropdownPaises from "./DropdownPaises";
 import enderecoContext from "../services/enderecoContext";
 import cadastroUsuarioService from "../services/CadastroUsuarioService";
+import DropdownSearchEspecializacao from "./DropdownEspecializacao";
 import CEPinput from "./CEPInput";
 
 export default function CadastroUsuario(props) {
@@ -15,7 +16,7 @@ export default function CadastroUsuario(props) {
   useEffect(() => {
     $("#cpf").mask("000.000.000-00", { reverse: true });
     $("#cep").mask("00000-000");
-    $("#salario").mask("###0.00", { reverse: true });
+    $("#salario").mask("000.000.000,00", { reverse: true });
     $("#rg").mask("00.000.000-0", { reverse: true });
   }, []);
 
@@ -38,7 +39,7 @@ export default function CadastroUsuario(props) {
           </div>
           <div className="flex flex-row w-full justify-evenly pt-2">
             <FormInput name="crm" type="text" placeholder="CRM" size="w-1/2" />
-            <FormInput name="especializacao" type="text" placeholder="Especialização" size="w-1/2" />
+            <DropdownSearchEspecializacao />
           </div>
           <div className="flex flex-row w-full justify-evenly items-center pt-2">
             <FormInput name='salario' placeholder="Salário" type="text" size="w-1/4" />
