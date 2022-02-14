@@ -42,7 +42,7 @@ export default function CadastroAtendimentos(props) {
         let data = new FormData(e.target);
         atendimentosService.CadastrarAtendimentos(data)
             .then((response) => {
-                if (response.data.affectedRows == "1") {
+                if (response.data.affectedRows === 1) {
                     alert("Cadastrado com sucesso");
                     window.location.reload();
                 }

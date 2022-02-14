@@ -32,7 +32,7 @@ export default function AdicionarReceita(props) {
                 intervalo: rec.intervalo
             }
         })))
-   }, [receitas])
+   }, [receitas, remedios])
 
     async function handleSubmitForm(e) {
         e.preventDefault()
@@ -56,7 +56,7 @@ export default function AdicionarReceita(props) {
                 if(response.data.affectedRows === 1){
                     alert("Receita cadastrada com sucesso!")
                     setReceitasListar([...receitasListar, {
-                        nome: remedios.find((reme) => reme.value == remedio).name,
+                        nome: remedios.find((reme) => reme.value === remedio).name,
                         duracao: duracao,
                         dosagem: dosagem,
                         intervalo: intervalo,
