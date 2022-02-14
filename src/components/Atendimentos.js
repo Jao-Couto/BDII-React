@@ -55,9 +55,9 @@ export default function Atendimentos(props) {
             dados[ind]["data_hora"] = dataFormat;
           });
 
-          setFilaAtendimentos(dados.filter((e)=>{return e.status === NaFila}))
-          setEmAtendimento(dados.filter((e)=>{return e.status === EmAndamento}))
-          setAtendimentosConcluidos(dados.filter((e)=>{return e.status === Concluido}))
+          setFilaAtendimentos(dados.filter((e) => { return e.status === NaFila }))
+          setEmAtendimento(dados.filter((e) => { return e.status === EmAndamento }))
+          setAtendimentosConcluidos(dados.filter((e) => { return e.status === Concluido }))
 
         })
         .catch((error) => {
@@ -105,9 +105,9 @@ export default function Atendimentos(props) {
             dados[ind]["data_hora"] = dataFormat;
           });
 
-          setFilaAtendimentos(dados.filter((e)=>{return e.status === NaFila}))
-          setEmAtendimento(dados.filter((e)=>{return e.status === EmAndamento}))
-          setAtendimentosConcluidos(dados.filter((e)=>{return e.status === Concluido}))
+          setFilaAtendimentos(dados.filter((e) => { return e.status === NaFila }))
+          setEmAtendimento(dados.filter((e) => { return e.status === EmAndamento }))
+          setAtendimentosConcluidos(dados.filter((e) => { return e.status === Concluido }))
 
           console.log(dados);
 
@@ -121,37 +121,25 @@ export default function Atendimentos(props) {
 
   const handleChange = (rowData) => {
 
-    if(rowData.status !== Concluido && !props.isAtendente){
+    if (rowData.status !== Concluido && !props.isAtendente) {
       console.log("Selected Rows: ", rowData);
-    let data = {
-      "cod_atendimento": rowData.codigo,
-      "crm": localStorage.getItem('crm')
-    }
-    medicoAtendeService.cadastrarMedicoAtende(data)
-      .then(response => {
-        console.log('Medico atendendo');
-        console.log(response.data);
-        setCodigoMA(response.data)
-        setAtendendo(rowData)
-      })
-      .catch(error => {
-        console.log('Error medico atender: ' + error);
-      })
-
-    data = {
-      "codigo": rowData.codigo,
-      "status": 2
-    }
-    atendimentosService.UpdateStatus(data)
-      .then(response => {
-        console.log('Status atendendo');
-      })
-      .catch(error => {
-        console.log('Status error: ' + error);
-      })
+      let data = {
+        "cod_atendimento": rowData.codigo,
+        "crm": localStorage.getItem('crm')
+      }
+      medicoAtendeService.cadastrarMedicoAtende(data)
+        .then(response => {
+          console.log('Medico atendendo');
+          console.log(rowData.codigo);
+          setCodigoMA(response.data)
+          setAtendendo(rowData)
+        })
+        .catch(error => {
+          console.log('Error medico atender: ' + error);
+        })
     }
 
-    
+
   };
 
 
@@ -193,8 +181,8 @@ export default function Atendimentos(props) {
             striped
           />
         </TabPanel>
-      
-    </Tabs>
+
+      </Tabs>
 
     );
   else {
