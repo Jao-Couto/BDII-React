@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "./components/login";
-import { FaUsers, FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { FaUsers, FaHospital , FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { GiMedicines } from "react-icons/gi"
 
 import {
   BrowserRouter as Router,
@@ -16,10 +17,12 @@ import DropdownMenu from "./components/DropdownMenu";
 import useLocalStorage from "./services/useLocalStorage";
 import CadastroExames from "./components/CadastroExames";
 import CadastroAtendimentos from "./components/CadastroAtendimento";
-import ExamesERemedios from "./components/ExamesERemedios";
+import Exames from "./components/Exames";
 import Plantao from "./components/Plantao";
 import Atendendo from "./components/Atendento";
 import Usuarios from "./components/Usuarios";
+import Remedios from "./components/Remedios";
+import PlanosDeSaude from "./components/PlanosDeSaude";
 
 function App() {
 
@@ -70,6 +73,9 @@ function App() {
                   <Link to="/medico/plantao" style={{ textDecoration: "none" }}>
                     <Button name="Plantão" icon={<FaUserClock size="24" />} id="plantao" styles="min-w-navbar-btn" />
                   </Link>
+                  <Link to="/medico/remedios" style={{ textDecoration: "none" }}>
+                    <Button name="Remédios" icon={<GiMedicines size="24" />} id="remedios" styles="min-w-navbar-btn" />
+                  </Link>
                 </>
               ) : (
                 <>
@@ -100,6 +106,9 @@ function App() {
                       { name: "Paciente", route: "/usuarios/pacientes", icon: <FaUserInjured size="18" /> }
                     ]}
                   />
+                  <Link to="/planosDeSaude" style={{ textDecoration: "none" }}>
+                    <Button name="Planos de Saude" icon={<FaHospital size="24" />} id="planosDeSaude" styles="min-w-navbar-btn" />
+                  </Link>
                 </>
               )}
             </div>
@@ -140,7 +149,10 @@ function App() {
             </Route>
             {/*Médico*/}
             <PrivateRoute path="/medico/exames">
-              <ExamesERemedios />
+              <Exames />
+            </PrivateRoute>
+            <PrivateRoute path="/medico/remedios">
+              <Remedios />
             </PrivateRoute>
             <PrivateRoute path="/medico/plantao">
               <Plantao />
@@ -160,6 +172,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/cadastrar/medico">
               <CadastroUsuario type="medico" />
+            </PrivateRoute>
+            <PrivateRoute path="/planosDeSaude">
+              <PlanosDeSaude/>
             </PrivateRoute>
             <PrivateRoute path="/cadastrar/paciente">
               <CadastroUsuario type="paciente" />

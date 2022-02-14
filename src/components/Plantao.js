@@ -43,7 +43,7 @@ export default function Plantao(){
 
     return (
       <>
-        <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
+        <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12 max-w-7xl">
             <h1 className="text-5xl text-center mb-5">Seus Plantões</h1>
             <div className='w-full relative justify-center'>
                 
