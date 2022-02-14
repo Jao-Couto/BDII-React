@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'jquery-mask-plugin/dist/jquery.mask.min';
 import examesService from '../services/examesService';
 import "./select-search.css";
@@ -21,7 +21,7 @@ export default function ListarExames(props) {
             .catch(error => {
                 alert(error)
             })
-    }, [props.att])
+    }, [props.atendimento])
 
     let i = 0;
     return (

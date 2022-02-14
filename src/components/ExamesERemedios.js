@@ -9,6 +9,7 @@ import remediosService from "../services/remediosService";
 
 import { FaSearch } from 'react-icons/fa'
 import { TabList, Tabs, Tab, TabPanel } from "react-tabs";
+import CadastroRemedio from "./CadastroRemedio";
 
 export default function ExamesERemedios(){
     //Exames
@@ -16,12 +17,15 @@ export default function ExamesERemedios(){
     const [columnExamesSolicitados, setColumnExamesSolicitados] = useState([]);
     const [tiposExames, setTiposExames] = useState([]);
     const [examesSolicitados, setExamesSolicitados] = useState([]);
-    const [isSearch, setIsSearch] = useState(false);
+    const [isSearchExames, setIsSearchExames] = useState(false);
     const [examesSorted, setExamesSorted] = useState([{}]);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalExamesIsOpen, setModalExamesIsOpen] = useState(false);
     //Remedios
     const [remedios, setRemedios] = useState([]);
     const [columnRemedios, setColumnRemedios] = useState([]);
+    const [remediosSorted, setRemediosSorted] = useState([]);
+    const [isSearchRemedios, setIsSearchRemedios] = useState(false);
+    const [modalRemediosIsOpen, setModalRemediosIsOpen] = useState(false);
 
 
     useEffect(()=>{
@@ -30,11 +34,11 @@ export default function ExamesERemedios(){
         setColumnRemedios([
             {
                 name: 'Codigo',
-                selector: (row) => row.codigo
+                selector: (row) => row.value
             },
             {
                 name: 'Nome',
-                selector: (row) => row.nome
+                selector: (row) => row.name
             }
         ])
 
@@ -84,17 +88,18 @@ export default function ExamesERemedios(){
             setExamesSolicitados(dados.data);
         })
 
-    },[])
+    }, [])
 
     const handleChange = ({ selectedRows }) => {
         // You can set state or dispatch with something like Redux so we can use the retrieved data
-        console.log("Selected Rows: ", selectedRows);
+        //console.log("Selected Rows: ", selectedRows);
     };
 
-    function handleSearch(e){
+
+    function handleSearchExames(e){
         let content = e.target.value;
         if(content.length !== 0){
-            setIsSearch(true)
+            setIsSearchExames(true)
             let searchResult = tiposExames.reduce((aux, data)=>{
                 if(data.name.toLowerCase().includes(content.toLowerCase()))
                     aux.push(data);
@@ -102,7 +107,22 @@ export default function ExamesERemedios(){
             }, [])
             setExamesSorted(searchResult)
         }else{
-            setIsSearch(false)
+            setIsSearchExames(false)
+        }
+    }
+
+    function handleSearchRemedios(e){
+        let content = e.target.value;
+        if(content.length !== 0){
+            setIsSearchRemedios(true)
+            let searchResult = remedios.reduce((aux, data)=>{
+                if(data.name.toLowerCase().includes(content.toLowerCase()))
+                    aux.push(data);
+                return aux;
+            }, [])
+            setRemediosSorted(searchResult)
+        }else{
+            setIsSearchRemedios(false)
         }
     }
     
@@ -112,12 +132,12 @@ export default function ExamesERemedios(){
         <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
 
             <div className='w-full relative justify-center'>
-                <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome do Exame'/>
+                <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearchExames} placeholder='Nome do Exame'/>
                 <FaSearch className='absolute top-7 left-3' size='24px'/>
             </div>
             <DataTable
                 columns={columnTiposExames}
-                data={(isSearch ? examesSorted : tiposExames)}
+                data={(isSearchExames ? examesSorted : tiposExames)}
                 selectableRows
                 pagination
                 onSelectedRowsChange={handleChange}
@@ -130,10 +150,10 @@ export default function ExamesERemedios(){
                 backdrop="bg-white"
                 styles="mr-0 ml-auto text-white"
                 color="bg-green-600 cursor-pointer"
-                onClick={()=>setModalIsOpen(true)}
+                onClick={()=>setModalExamesIsOpen(true)}
             />
             </div>
-            <Modal isOpen={modalIsOpen} handleModal={setModalIsOpen}>
+            <Modal isOpen={modalExamesIsOpen} handleModal={setModalExamesIsOpen}>
                 <CadastroExames/>
             </Modal>
         </>
@@ -152,26 +172,40 @@ export default function ExamesERemedios(){
             </TabPanel>
 
             <TabPanel className="w-full justify-center items-center">
-            <DataTable
-                columns={columnExamesSolicitados}
-                data={examesSolicitados}
-                pagination
-                onRowClicked={handleChange}
-                highlightOnHover
-                striped
-            />
-            </TabPanel>
-        </Tabs>
-        <div className="flex flex-col h-3/4 w-1/4">
-            
-            <DataTable
-                    columns={columnRemedios}
-                    data={remedios}
+                <DataTable
+                    columns={columnExamesSolicitados}
+                    data={examesSolicitados}
                     pagination
                     onRowClicked={handleChange}
                     highlightOnHover
-                    striped />
+                    striped
+                />
+            </TabPanel>
+        </Tabs>
+        <div className="flex flex-col h-3/4 w-1/4">
+            <div className='w-full relative justify-center'>
+                <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearchRemedios} placeholder='Nome do Remédio'/>
+                <FaSearch className='absolute top-7 left-3' size='24px'/>
+            </div>
+            <DataTable
+                columns={columnRemedios}
+                data={(isSearchRemedios ? remediosSorted : remedios)}
+                pagination
+                onRowClicked={handleChange}
+                highlightOnHover
+                striped />
+            <Button
+                name="Adicionar remédio"
+                width="w-1/2"
+                backdrop="bg-white"
+                styles="mr-0 ml-auto text-white"
+                color="bg-green-600 cursor-pointer"
+                onClick={()=>setModalRemediosIsOpen(true)}
+            />
         </div>
+        <Modal isOpen={modalRemediosIsOpen} handleModal={setModalRemediosIsOpen}>
+            <CadastroRemedio finally={()=> window.location.reload()} />
+        </Modal>
         </>
     );
 }
