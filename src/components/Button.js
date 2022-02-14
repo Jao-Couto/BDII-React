@@ -4,7 +4,7 @@ export default function Button(props){
 
     return(
         <div className={props.backdrop}>
-            <div className={`overflow-ellipsis flex items-center justify-center p-3 hover:bg-opacity-90 ${props.color} ${props.width} ${props.height} ${props.styles}`} onClick={props.onClick} id={id}>
+            <div className={`overflow-ellipsis cursor-pointer flex items-center justify-center p-3 hover:bg-opacity-90 ${props.color} ${props.width} ${props.height} ${props.styles}`} onClick={props.onClick} id={id}>
                 <p className={props.icon ? 'mx-2' : 'hidden'}>{props.icon}</p>
                 {props.name}
             </div>
