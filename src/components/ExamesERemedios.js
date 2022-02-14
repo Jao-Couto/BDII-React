@@ -129,8 +129,8 @@ export default function ExamesERemedios(){
     const TiposExamesComponent = 
 
       <>
-        <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
-
+        <div className="bg-white flex flex-col h-full justify-center items-centers w-full">
+            
             <div className='w-full relative justify-center'>
                 <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearchExames} placeholder='Nome do Exame'/>
                 <FaSearch className='absolute top-7 left-3' size='24px'/>
@@ -144,68 +144,66 @@ export default function ExamesERemedios(){
                 highlightOnHover
                 striped
             />
-            <Button
-                name="Adicionar exame"
-                width="w-1/2"
-                backdrop="bg-white"
-                styles="mr-0 ml-auto text-white"
-                color="bg-green-600 cursor-pointer"
-                onClick={()=>setModalExamesIsOpen(true)}
-            />
             </div>
-            <Modal isOpen={modalExamesIsOpen} handleModal={setModalExamesIsOpen}>
-                <CadastroExames/>
-            </Modal>
+            
         </>
     ;
 
-    return (
-        <>
-        <Tabs className="flex flex-col h-3/4 w-1/2 bg-white text-xl">
-            <TabList className="flex pb-3">
-                <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Tipos de Exames</Tab>
-                <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Exames Solicitados</Tab>
-            </TabList>
-    
-            <TabPanel className="w-full justify-center items-center">
-                {TiposExamesComponent}
-            </TabPanel>
+    const btnStyle = "p-3 cursor-pointer rounded-md bg-green-500 text-white text-base justify-self-end"
 
-            <TabPanel className="w-full justify-center items-center">
+    return (
+        <div className="grid grid-cols-5 gap-20 h-full w-11/12 place-content-evenly justify-center text-xl">
+            <Tabs className="w-full col-span-3 justify-self-end">
+                <div className="grid grid-cols-2 mb-10 items-center">
+                    <div className="text-4xl m-2  font-thin">Exames</div>
+                    <div className={btnStyle} onClick={() => setModalExamesIsOpen(true)}> Adicionar Exame</div>
+                </div>
+                
+                <TabList className="flex pb-3">
+                    <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Tipos de Exames</Tab>
+                    <Tab className="px-3 rounded-sm" selectedClassName="border-b-2 bg-gray-100">Exames Solicitados</Tab>
+                </TabList>
+        
+                <TabPanel className="w-full justify-center items-center">
+                    {TiposExamesComponent}
+                </TabPanel>
+
+                <TabPanel className="w-full justify-center items-center">
+                    <DataTable
+                        columns={columnExamesSolicitados}
+                        data={examesSolicitados}
+                        pagination
+                        onRowClicked={handleChange}
+                        highlightOnHover
+                        striped
+                    />
+                </TabPanel>
+            </Tabs>
+            <div className="flex flex-col w-full col-span-2">
+                <div className="grid grid-cols-2 items-center mb-10">
+                    <div className="text-4xl m-2 font-thin">Remédios</div>
+                    <div className={btnStyle} onClick={() => setModalRemediosIsOpen(true)}>Adicionar Remédio</div>
+                </div>
+                
+                <div className='w-full relative justify-center'>
+                    <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearchRemedios} placeholder='Nome do Remédio'/>
+                    <FaSearch className='absolute top-7 left-3' size='24px'/>
+                </div>
                 <DataTable
-                    columns={columnExamesSolicitados}
-                    data={examesSolicitados}
+                    columns={columnRemedios}
+                    data={(isSearchRemedios ? remediosSorted : remedios)}
                     pagination
                     onRowClicked={handleChange}
                     highlightOnHover
-                    striped
-                />
-            </TabPanel>
-        </Tabs>
-        <div className="flex flex-col h-3/4 w-1/4">
-            <div className='w-full relative justify-center'>
-                <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearchRemedios} placeholder='Nome do Remédio'/>
-                <FaSearch className='absolute top-7 left-3' size='24px'/>
+                    striped />
+                
             </div>
-            <DataTable
-                columns={columnRemedios}
-                data={(isSearchRemedios ? remediosSorted : remedios)}
-                pagination
-                onRowClicked={handleChange}
-                highlightOnHover
-                striped />
-            <Button
-                name="Adicionar remédio"
-                width="w-1/2"
-                backdrop="bg-white"
-                styles="mr-0 ml-auto text-white"
-                color="bg-green-600 cursor-pointer"
-                onClick={()=>setModalRemediosIsOpen(true)}
-            />
+            <Modal isOpen={modalRemediosIsOpen} handleModal={setModalRemediosIsOpen}>
+                <CadastroRemedio finally={()=> window.location.reload()} />
+            </Modal>
+            <Modal isOpen={modalExamesIsOpen} handleModal={setModalExamesIsOpen}>
+                <CadastroExames/>
+            </Modal>
         </div>
-        <Modal isOpen={modalRemediosIsOpen} handleModal={setModalRemediosIsOpen}>
-            <CadastroRemedio finally={()=> window.location.reload()} />
-        </Modal>
-        </>
     );
 }

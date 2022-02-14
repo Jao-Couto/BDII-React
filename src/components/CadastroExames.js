@@ -40,7 +40,7 @@ export default function CadastroExames(props) {
                 <input id='nome' name='nome' type='text' className="p-2 rounded-sm w-full m-1 border border-gray-200" value={nome} onChange={elem => setNome(elem.target.value)} placeholder="Nome" required></input>
             </div>
 
-            <input type='submit' value='Cadastrar' className='px-3 py-2 w-1/4 m-1 rounded-sm bg-blue-600 text-white font-bold tracking-wide self-end' />
+            <input type='submit' value='Cadastrar' className='px-3 py-2 m-1 rounded-sm bg-blue-600 text-white cursor-pointer font-bold tracking-wide self-end' />
         </form>
     );
 }

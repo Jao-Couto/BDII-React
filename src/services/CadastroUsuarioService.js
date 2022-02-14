@@ -12,7 +12,7 @@ class CadastroUsuarioService {
         headers: { "content-type": "multipart/form-data" },
       })
       .then((response) => {
-        if (response.data.status == "1") {
+        if (response.data.status === 1) {
           alert(response.data.Msg);
           window.location.href = "/";
         }
