@@ -18,8 +18,8 @@ export default function DropdownMenu(props){
                             // Rota para acesso
                             <Link to={comp.route} key={index}>
                                 <Button
-                                name={comp.name} // Nome do botão
-                                icon={comp.icon ? comp.icon : false} // Icone do botão
+                                    name={comp.name} // Nome do botão
+                                    icon={comp.icon ? comp.icon : false} // Icone do botão
                                 />
                             </Link>
                         )
