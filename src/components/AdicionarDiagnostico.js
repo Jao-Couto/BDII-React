@@ -7,6 +7,7 @@ export default function AdicionarDiagnostico(props) {
     const [diagnostico, setDiagnostico] = useState('');
     const [dados, setDados] = useState([]);
     const [columns, setColumns] = useState([]);
+    const [countCadastroDiagn, setCount] = useState(0);
     let codigoMa = props.codigoMa;
 
     async function handleSubmitForm(e) {
@@ -24,6 +25,7 @@ export default function AdicionarDiagnostico(props) {
         medicoAtendeService.cadastrarDiagnostico(data)
             .then(response => {
                 console.log('Cadastrado diagnostico');
+                setCount(countCadastroDiagn+1)
                 setDiagnostico('');
             })
             .catch(error => {
@@ -40,8 +42,8 @@ export default function AdicionarDiagnostico(props) {
                 selector: row=> `${row.diagnostico}`
             }
         ])
-        medicoAtendeService.historicoDiagnostico(codigoMa).then((dados)=>setDados(dados.data))
-    }, [dados, codigoMa])
+        medicoAtendeService.historicoDiagnostico(codigoMa).then((res)=>setDados(res.data))
+    }, [codigoMa, countCadastroDiagn])
 
 
 

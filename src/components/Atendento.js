@@ -5,6 +5,7 @@ import Modal from "./Modal";
 import SolicitarExames from "./SolicitarExames";
 import AdicionarReceita from "./AdicionarReceita";
 import atendimentosService from "../services/atendimentosService";
+import { Redirect } from "react-router-dom";
 
 export default function Atendendo(props) {
     const [modalExame, setModalExame] = useState(false);
@@ -27,33 +28,37 @@ export default function Atendendo(props) {
             })
     }
 
-    return (
-        <div className="flex items-center flex-col justify-center h-2/4 w-1/2 bg-white border-2 rounded-md">
+    const defaultBackdrop = "bg-white w-10/12 m-2"
+    const defaultStyles = "mr-0 ml-auto text-white rounded-sm"
+    const defaultColor = "bg-blue-600 cursor-pointer"
+    
+    return props.location.state === undefined ? <Redirect to={'/'} /> : (
+        <div className="flex items-center flex-col justify-center h-2/4 w-1/2 bg-white border-2 rounded-lg">
             <Button
                 name="Exames"
-                backdrop="bg-white w-10/12 m-2"
-                styles="mr-0 ml-auto text-white"
-                color="bg-blue-600 cursor-pointer"
+                backdrop={defaultBackdrop}
+                styles={defaultStyles}
+                color={defaultColor}
                 onClick={() => setModalExame(true)}
             />
             <Button
                 name="Adicionar diagnóstico"
-                backdrop="bg-white w-10/12 m-2"
-                styles="mr-0 ml-auto text-white"
-                color="bg-blue-600 cursor-pointer"
+                backdrop={defaultBackdrop}
+                styles={defaultStyles}
+                color={defaultColor}
                 onClick={() => setModalDiagnostico(true)}
             />
             <Button
                 name="Preescrever remédio"
-                backdrop="bg-white w-10/12 m-2"
-                styles="mr-0 ml-auto text-white"
-                color="bg-blue-600 cursor-pointer"
+                backdrop={defaultBackdrop}
+                styles={defaultStyles}
+                color={defaultColor}
                 onClick={() => setModalRemedio(true)}
             />
             <Button
                 name="Finalizar"
-                backdrop="bg-white w-10/12 m-2"
-                styles="mr-0 ml-auto text-white"
+                backdrop={defaultBackdrop}
+                styles={defaultStyles}
                 color="bg-red-600 cursor-pointer"
                 onClick={() => finalizar()}
             />
