@@ -21,7 +21,7 @@ export default function ListarExames(props) {
             .catch(error => {
                 alert(error)
             })
-    }, [props.atendimento])
+    }, [props.atendimento, props.att])
 
     let i = 0;
     return (

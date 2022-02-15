@@ -1,20 +1,23 @@
 import "./select-search.css";
 import Select from 'react-select'
 import { useEffect } from "react";
-import pacienteService from "../services/pacienteService";
+import planoDeSaudeService from "../services/planoDeSaudeService";
 import { useState } from "react/cjs/react.development";
 
-export default function DropdownSearchPacientes(props) {
+export default function DropdownPlanoSaude(props) {
     const [options, setOptions] = useState([])
+
+    const handleChange = e => {
+        props.setPlanoSaude(e.value);
+    }
 
 
     useEffect(() => {
-        pacienteService.listarPacientes()
+        planoDeSaudeService.getPlanos()
             .then((response) => {
-                console.log(response.data.map((elem) => elem.cpf));
                 setOptions([...response.data.map((elem) => {
                     return {
-                        value: elem.cpf,
+                        value: elem.codigo,
                         label: elem.nome,
                     }
                 })])
@@ -24,17 +27,12 @@ export default function DropdownSearchPacientes(props) {
             })
     }, [])
 
-    const handleChange = e => {
-        props.setCpfPaciente(e.value);
-    }
-
     return (
         <Select
             options={options}
-            defaultValue={options[0]}
             isClearable={true}
             isSearchable={true}
-            className="w-full m-1"
+            className="w-1/2 m-1"
             onChange={handleChange}
         />
     );
