@@ -60,6 +60,21 @@ class AtendimentosService {
         })
     }
 
+    async listarAtendimentosHistorico() {
+        return axios({
+            url: "http://localhost:5000/atendimentos/listarHistorico",
+            method: "GET",
+            timeout: 5000,
+            header: {
+                Accept: 'application/json'
+            }
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+            return Promise.reject(error)
+        })
+    }
+
 }
 
 const atendimentosService = new AtendimentosService()

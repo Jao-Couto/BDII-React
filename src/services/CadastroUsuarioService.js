@@ -6,7 +6,7 @@ class CadastroUsuarioService {
     e.preventDefault();
     let data = new FormData(e.target);
     data.set('salario', parseFloat(data.get('salario')))
-    console.log(data.get("salario"));
+    console.log(data.get("plano_de_saude"));
     await axios
       .post(`http://localhost:5000/${url}`, data, {
         headers: { "content-type": "multipart/form-data" },

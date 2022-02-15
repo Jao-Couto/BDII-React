@@ -13,6 +13,7 @@ export default function AdicionarReceita(props) {
     const [duracao, setDuracao] = useState('');
     const [dosagem, setDosagem] = useState('');
     const [intervalo, setIntervalo] = useState('');
+    const [att, setAtt] = useState(0);
 
 
     useEffect(() => {
@@ -23,6 +24,7 @@ export default function AdicionarReceita(props) {
     }, [props.atendimento])
 
     useEffect(() => {
+        console.log("lisatr");
         setReceitasListar(receitas.flatMap((rec => {
             return {
                 key: rec.codigo,
@@ -32,7 +34,7 @@ export default function AdicionarReceita(props) {
                 intervalo: rec.intervalo
             }
         })))
-    }, [receitas, remedios])
+    }, [att])
 
     async function handleSubmitForm(e) {
         e.preventDefault()
@@ -53,52 +55,17 @@ export default function AdicionarReceita(props) {
 
         receitaService.cadastrarReceita(data)
             .then(response => {
-                if (response.data.affectedRows === 1) {
-                    alert("Receita cadastrada com sucesso!")
-                    setReceitasListar([...receitasListar, {
-                        nome: remedios.find((reme) => reme.value === remedio).name,
-                        duracao: duracao,
-                        dosagem: dosagem,
-                        intervalo: intervalo,
-                    }])
-                    console.log(receitasListar);
-                    document.getElementById("prescrever-remedio-form").reset()
-                    setRemedio(null)
-                    setDuracao("")
-                    setDosagem("")
-                    setIntervalo("")
-                }
+                alert("Receita cadastrada com sucesso!")
+                setRemedio(null)
+                setDuracao("")
+                setDosagem("")
+                setIntervalo("")
+                setAtt(att + 1)
             })
             .catch(error => {
                 console.log(error);
             })
     }
-    /*
-    
-        const handleChange = (...args) => {
-            setRemedio(args[0])
-        };
-    
-        const handleFilter = (items) => {
-    
-            return (searchValue) => {
-                return items.filter((item) => {
-                    return item.toLowerCase().includes(searchValue.toLowerCase());
-                });
-            };
-        };
-        <SelectSearch
-            ref={searchInput}
-            options={items.map((rem)=>{
-                return rem.nome
-            })}
-            filterOptions={handleFilter}
-            name="remedios"
-            placeholder="Selecione um remédio"
-            search
-            onChange={handleChange}
-            required
-        />*/
 
 
     let i = 0;

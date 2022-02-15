@@ -10,6 +10,7 @@ import enderecoContext from "../services/enderecoContext";
 import cadastroUsuarioService from "../services/CadastroUsuarioService";
 import DropdownSearchEspecializacao from "./DropdownEspecializacao";
 import CEPinput from "./CEPInput";
+import DropdownPlanoSaude from "./DropdownPlanoSaude";
 
 export default function CadastroUsuario(props) {
 
@@ -24,6 +25,7 @@ export default function CadastroUsuario(props) {
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
+  const [planoSaude, setPlanoSaude] = useState('');
 
   var title = "";
   var inputsPerType = null;
@@ -78,20 +80,13 @@ export default function CadastroUsuario(props) {
       break;
 
     case "paciente":
+
       title = "Cadastro Paciente";
       inputsPerType = (
         <div className="flex flex-row w-full justify-start pt-2">
           <FormInput name='rg' placeholder='RG' type='text' size="w-1/2" />
-          <select
-            id="planoDeSaude"
-            name="planoDeSaude"
-            type="text"
-            className="p-2 rounded-sm w-1/2 m-1 border border-gray-200"
-            placeholder="Plano"
-            required
-          >
-            <option value="Unimed">Unimed</option>
-          </select>
+          <DropdownPlanoSaude setPlanoSaude={setPlanoSaude}></DropdownPlanoSaude>
+          <FormInput name='plano_de_saude' type='hidden' value={planoSaude} />
         </div>
       );
       url = "pacientes/cadastrar";

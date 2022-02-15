@@ -52,7 +52,20 @@ class ExamesService {
         })
     }
 
-
+    async listarAllExamesSolicitados() {
+        return axios({
+            url: "http://localhost:5000/exames/listarAllExamesSolicitados",
+            method: "GET",
+            timeout: 5000,
+            header: {
+                Accept: 'application/json'
+            }
+        }).then((response) => {
+            return Promise.resolve(response)
+        }).catch((error) => {
+            return Promise.reject(error)
+        })
+    }
 
     async listarTiposDeExames() {
         return axios({

@@ -21,7 +21,7 @@ export default function SolicitarExames(props) {
             .catch(error => {
                 alert(error)
             })
-    }, [])
+    }, [att])
 
 
     async function handleSubmitForm(e) {
@@ -34,8 +34,8 @@ export default function SolicitarExames(props) {
 
         examesService.solicitarExame(data)
             .then((response) => {
-                console.log(response)
-                if (response.data.affectedRows === 1) {
+                console.log(response.data.affectedRows)
+                if (response.data.affectedRows == 1) {
                     setAtt(att + 1)
                     setDescricao('')
                     alert("Solicitado com sucesso!!");
