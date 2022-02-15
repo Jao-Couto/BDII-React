@@ -32,7 +32,7 @@ export default function ListarExames(props) {
                 i++;
                 return <div className="flex flex-row w-full justify-evenly p-2 border-2" key={i}>
                     <p className='w-1/3 break-words' >{item.nome_exame}</p>
-                    <p className='w-1/3 break-words'>{item.descricao} adjkdbhashjg dhjasgjdh gashjgdhas ghadgs</p>
+                    <p className='w-1/3 break-words'>{item.descricao}</p>
                     <p className='w-1/3 break-words'>{item.data}</p>
                 </div>
             })}
