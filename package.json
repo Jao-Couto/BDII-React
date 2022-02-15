@@ -12,6 +12,7 @@
     "axios": "^0.22.0",
     "jquery": "^3.6.0",
     "jquery-mask-plugin": "^1.14.16",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-data-table-component": "^7.4.4",
     "react-dom": "^17.0.2",

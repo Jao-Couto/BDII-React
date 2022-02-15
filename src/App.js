@@ -1,6 +1,6 @@
 import React from "react";
 import Login from "./components/login";
-import { FaUsers, FaHospital , FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { FaUsers, FaHospital, FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import { GiMedicines } from "react-icons/gi"
 
 import {
@@ -23,6 +23,7 @@ import Atendendo from "./components/Atendento";
 import Usuarios from "./components/Usuarios";
 import Remedios from "./components/Remedios";
 import PlanosDeSaude from "./components/PlanosDeSaude";
+import HistoricoAtendimentos from "./components/HistoricoAtendimentos";
 
 function App() {
 
@@ -109,6 +110,9 @@ function App() {
                   <Link to="/planosDeSaude" style={{ textDecoration: "none" }}>
                     <Button name="Planos de Saude" icon={<FaHospital size="24" />} id="planosDeSaude" styles="min-w-navbar-btn" />
                   </Link>
+                  <Link to="/historicoAtendimento" style={{ textDecoration: "none" }}>
+                    <Button name="Histórico de Atendimentos" icon={<FaHospital size="24" />} id="historicoAtendimento" styles="min-w-navbar-btn" />
+                  </Link>
                 </>
               )}
             </div>
@@ -174,7 +178,10 @@ function App() {
               <CadastroUsuario type="medico" />
             </PrivateRoute>
             <PrivateRoute path="/planosDeSaude">
-              <PlanosDeSaude/>
+              <PlanosDeSaude />
+            </PrivateRoute>
+            <PrivateRoute path="/historicoAtendimento">
+              <HistoricoAtendimentos></HistoricoAtendimentos>
             </PrivateRoute>
             <PrivateRoute path="/cadastrar/paciente">
               <CadastroUsuario type="paciente" />
