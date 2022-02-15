@@ -87,8 +87,6 @@ export default function HistoricoAtendimentos() {
         setDataFim(e.target.value)
     }
 
-
-
     const btnStyle = "p-3 cursor-pointer rounded-md bg-green-500 text-white text-base justify-self-end"
 
     return (
