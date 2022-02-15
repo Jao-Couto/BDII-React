@@ -16,7 +16,7 @@ export default function CadastroUsuario(props) {
   useEffect(() => {
     $("#cpf").mask("000.000.000-00", { reverse: true });
     $("#cep").mask("00000-000");
-    $("#salario").mask("000.000.000,00", { reverse: true });
+    $("#salario").mask("000,000,000.00", { reverse: true });
     $("#rg").mask("00.000.000-0", { reverse: true });
   }, []);
 
