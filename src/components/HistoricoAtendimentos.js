@@ -63,27 +63,13 @@ export default function HistoricoAtendimentos() {
         //console.log("Selected Rows: ", selectedRows);
     };
 
-    function handleSearchMedico(e) {
-        let content = e.target.value;
-        if (content.length !== 0) {
-            setIsSearchAtendimentos(true)
-            let searchResult = atendimentos.reduce((aux, data) => {
-                if (data.nome_medico.toLowerCase().includes(content.toLowerCase()))
-                    aux.push(data);
-                return aux;
-            }, [])
-            setAtendimentosSorted(searchResult)
-        } else {
-            setIsSearchAtendimentos(false)
-        }
-    }
+    function handleSearch(e, type) {
 
-    function handleSearchPaciente(e) {
         let content = e.target.value;
         if (content.length !== 0) {
             setIsSearchAtendimentos(true)
             let searchResult = atendimentos.reduce((aux, data) => {
-                if (data.nome_paciente.toLowerCase().includes(content.toLowerCase()))
+                if (data[type].toLowerCase().includes(content.toLowerCase()))
                     aux.push(data);
                 return aux;
             }, [])
@@ -112,12 +98,12 @@ export default function HistoricoAtendimentos() {
 
                 <div className="grid grid-cols-2 items-center ">
                     <div className='w-full relative justify-center'>
-                        <input type='search' className='w-full p-2 pl-12 border outline-none' onChange={handleSearchMedico} placeholder='Nome do Médico' />
+                        <input type='search' className='w-full p-2 pl-12 border outline-none' onChange={(e)=> handleSearch(e, 'nome_medico')} placeholder='Nome do Médico' />
                         <FaSearch className='absolute top-3 left-3' size='24px' />
                     </div>
 
                     <div className='w-full relative justify-center'>
-                        <input type='search' className='w-full p-2 pl-12 border  outline-none' onChange={handleSearchPaciente} placeholder='Nome do Paciente' />
+                        <input type='search' className='w-full p-2 pl-12 border  outline-none' onChange={(e)=> handleSearch(e, 'nome_paciente')} placeholder='Nome do Paciente' />
                         <FaSearch className='absolute top-3 left-3' size='24px' />
                     </div>
                 </div>
