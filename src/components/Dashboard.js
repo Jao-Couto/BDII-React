@@ -2,6 +2,11 @@ import { useEffect, useState } from "react"
 import { Bar, BarChart, CartesianGrid, Funnel, FunnelChart, LabelList, Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Tooltip, Treemap, XAxis, YAxis } from "recharts"
 import dashboardService from "../services/dashboardService";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import DropdownMenu from "./DropdownMenu";
+import { FaUserAlt, FaUserInjured, FaUserMd, FaUsers } from "react-icons/fa";
+import { MdHistory } from "react-icons/md";
+import Button from "./Button";
+import { Link } from "react-router-dom";
 
 export default function Dashboard(props) {
 
@@ -29,7 +34,7 @@ export default function Dashboard(props) {
             return(
             <div className="w-full h-1/5 border border-b border-t-0 p-1">
                 <p className="text-base font-bold h-1/3 text-left">{str}</p>
-                <div className={`${sizeFont ? sizeFont : 'text-6xl'} font-bold h-2/3 text-center justify-center items-center flex`}>{data}</div>
+                <div className={`${sizeFont ? sizeFont : 'text-6xl'} font-bold h-2/3 text-center justify-center items-center flex truncate`}>{data}</div>
             </div>
             )
     
@@ -56,13 +61,14 @@ export default function Dashboard(props) {
     }
 
     function drawGraphRadar(data){
+        let maxLimitRadar = (Math.max(...data.map((a)=> a.total_usado)));
         return(
             <div className="w-1/2 flex items-center justify-center flex-col">
                 <ResponsiveContainer width="100%" height={250}>
                 <RadarChart outerRadius={90} width={500} height={250} data={data}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey="nome" />
-                    <PolarRadiusAxis angle={50} domain={[0, 8]}/>
+                    <PolarRadiusAxis angle={50} domain={[0, maxLimitRadar]}/>
                     <Radar name="Tipos de Urgencias" dataKey="total_usado" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
                     <Legend />
                 </RadarChart>
@@ -74,7 +80,23 @@ export default function Dashboard(props) {
 
     if(graphData !== undefined && graphData2 !== undefined && graphData3 !== undefined && graphData4 !== undefined)
         return(
-            <div className="flex w-full h-full">
+            <div className="flex w-full h-full relative">
+                <div className="h-12 absolute top-5 left-64 flex">
+                    <DropdownMenu
+                        id="usuarios"
+                        name="Usuarios"
+                        icon={<FaUsers size="24" />}
+                        styles="min-w-navbar-btn"
+                        options={[
+                        { name: "Atendentes", route: "/usuarios/atendentes", icon: <FaUserAlt size="18" /> },
+                        { name: "Médicos", route: "/usuarios/medicos", icon: <FaUserMd size="18" /> },
+                        { name: "Paciente", route: "/usuarios/pacientes", icon: <FaUserInjured size="18" /> }
+                        ]}
+                    />
+                    <Link to="/historicoAtendimento" style={{ textDecoration: "none" }}>
+                        <Button name="Histórico de Atendimentos" icon={<MdHistory size="24" />} id="historicoAtendimento" styles="min-w-navbar-btn" />
+                  </Link>
+                </div>
                 <aside className="h-full w-64 bg-white overflow-auto">
                     {cardData('Esse é o total de pacientes que temos cadastrados', totalPacientes)}
                     {cardData('Essa é a somatória de atendimentos concluidos', totalAtendimentos)}

@@ -2,6 +2,7 @@ import React from "react";
 import Login from "./components/login";
 import { FaUsers, FaHospital, FaUserPlus, FaUserMd, FaUserInjured, FaUserAlt, FaClipboardList, FaFileMedicalAlt, FaFileMedical, FaUserClock, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import { GiMedicines } from "react-icons/gi"
+import { MdOutlineAutoGraph } from "react-icons/md"
 
 import {
   BrowserRouter as Router,
@@ -97,25 +98,11 @@ function App() {
                       { name: "Paciente", route: "/cadastrar/paciente", icon: <FaUserInjured size="18" /> }
                     ]}
                   />
-                  <Link to="/dashboard" style={{ textDecoration: "none" }}>
-                    <Button name="Dashboard" icon={<FaClipboardList size="24" />} id="dash" styles="min-w-navbar-btn" />
-                  </Link>
-                  <DropdownMenu
-                    id="usuarios"
-                    name="Usuarios"
-                    icon={<FaUsers size="24" />}
-                    styles="min-w-navbar-btn"
-                    options={[
-                      { name: "Atendentes", route: "/usuarios/atendentes", icon: <FaUserAlt size="18" /> },
-                      { name: "Médicos", route: "/usuarios/medicos", icon: <FaUserMd size="18" /> },
-                      { name: "Paciente", route: "/usuarios/pacientes", icon: <FaUserInjured size="18" /> }
-                    ]}
-                  />
                   <Link to="/planosDeSaude" style={{ textDecoration: "none" }}>
                     <Button name="Planos de Saude" icon={<FaHospital size="24" />} id="planosDeSaude" styles="min-w-navbar-btn" />
                   </Link>
-                  <Link to="/historicoAtendimento" style={{ textDecoration: "none" }}>
-                    <Button name="Histórico de Atendimentos" icon={<FaHospital size="24" />} id="historicoAtendimento" styles="min-w-navbar-btn" />
+                  <Link to="/dashboard" style={{ textDecoration: "none" }}>
+                    <Button name="Dashboard" icon={<MdOutlineAutoGraph size="24" />} id="dash" styles="min-w-navbar-btn" />
                   </Link>
                 </>
               )}
