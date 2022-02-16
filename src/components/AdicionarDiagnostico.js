@@ -8,10 +8,11 @@ export default function AdicionarDiagnostico(props) {
     const [dados, setDados] = useState([]);
     const [columns, setColumns] = useState([]);
     const [countCadastroDiagn, setCount] = useState(0);
-    let codigoMa = props.codigoMa;
+
 
     async function handleSubmitForm(e) {
 
+        console.log(props.codigoMa);
         e.preventDefault()
         let data = {
             "codigo_ma": props.codigoMa,
@@ -19,7 +20,7 @@ export default function AdicionarDiagnostico(props) {
         }
 
         let aux = dados;
-        aux.push({"diagnostico": diagnostico});
+        aux.push({ "diagnostico": diagnostico });
         setDados(aux);
 
         medicoAtendeService.cadastrarDiagnostico(data)
@@ -33,17 +34,17 @@ export default function AdicionarDiagnostico(props) {
             })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setColumns([
             {
-                name:'Historico',
+                name: 'Historico',
                 wrap: true,
                 maxWidth: '350px',
-                selector: row=> `${row.diagnostico}`
+                selector: row => `${row.diagnostico}`
             }
         ])
-        medicoAtendeService.historicoDiagnostico(codigoMa).then((res) => setDados(res.data))
-    }, [codigoMa, countCadastroDiagn])
+        medicoAtendeService.historicoDiagnostico(props.codigoMa).then((res) => setDados(res.data))
+    }, [props.codigoMa, countCadastroDiagn])
 
 
 
@@ -60,7 +61,7 @@ export default function AdicionarDiagnostico(props) {
 
             <div className="h-48 overflow-auto">
                 <DataTable
-                    columns={columns}                    
+                    columns={columns}
                     data={dados}
                 />
             </div>

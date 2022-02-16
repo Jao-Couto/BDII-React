@@ -121,7 +121,7 @@ export default function Atendimentos(props) {
 
   const handleChange = (rowData) => {
 
-    if (rowData.status !== Concluido && !props.isAtendente) {
+    if (rowData.status === NaFila && !props.isAtendente) {
       console.log("Selected Rows: ", rowData);
       let data = {
         "cod_atendimento": rowData.codigo,
@@ -129,14 +129,24 @@ export default function Atendimentos(props) {
       }
       medicoAtendeService.cadastrarMedicoAtende(data)
         .then(response => {
-          console.log('Medico atendendo');
-          console.log(rowData.codigo);
           setCodigoMA(response.data)
           setAtendendo(rowData)
         })
         .catch(error => {
           console.log('Error medico atender: ' + error);
         })
+    }
+
+    if (!props.isAtendente && rowData.status === EmAndamento) {
+      medicoAtendeService.getCodigoMa(rowData.codigo)
+        .then((response) => {
+          setCodigoMA(response.data)
+          setAtendendo(rowData)
+        })
+        .catch(error => {
+          console.log(error);
+        })
+
     }
 
 
@@ -186,7 +196,7 @@ export default function Atendimentos(props) {
 
     );
   else {
-    console.log(atendendo);
+    console.log(codigoMA);
 
     return (<Redirect to={{ pathname: '/medico/atendendo', state: { linha: atendendo, ma: codigoMA } }} ></Redirect>)
   }

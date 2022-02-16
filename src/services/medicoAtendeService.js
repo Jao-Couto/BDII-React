@@ -42,7 +42,7 @@ class MedicoAtendeService {
         url: "http://localhost:5000/medicoAtende/historicoDiagnostico",
         method: "GET",
         timeout: 5000,
-        params:{
+        params: {
           codigo_ma: data
         },
         header: {
@@ -54,6 +54,24 @@ class MedicoAtendeService {
       throw error;
     }
   }
+
+  async getCodigoMa(data) {
+    try {
+      const cadastro = await axios({
+        url: "http://localhost:5000/medicoAtende/codigoMa/" + data,
+        method: "GET",
+        timeout: 5000,
+        header: {
+          Accept: "application/json",
+        },
+      });
+      return cadastro;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
 
 
 

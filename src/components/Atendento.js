@@ -12,6 +12,7 @@ export default function Atendendo(props) {
     const [modalRemedio, setModalRemedio] = useState(false);
     const [modalDiagnostico, setModalDiagnostico] = useState(false);
 
+    console.log("aqui" + props.location.state.ma);
     const finalizar = () => {
         let data = {
             "codigo": props.location.state.linha.codigo,
@@ -31,7 +32,9 @@ export default function Atendendo(props) {
     const defaultBackdrop = "bg-white w-10/12 m-2"
     const defaultStyles = "mr-0 ml-auto text-white rounded-sm"
     const defaultColor = "bg-blue-600 cursor-pointer"
-    
+
+
+
     return props.location.state === undefined ? <Redirect to={'/'} /> : (
         <div className="flex items-center flex-col justify-center h-2/4 w-1/2 bg-white border-2 rounded-lg">
             <Button
