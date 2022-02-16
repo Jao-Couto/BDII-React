@@ -30,7 +30,7 @@ export default function ListarReceitas(props) {
                 {receitas.map((remCad) => {
                     return <div className=' p-2 bg-gray-200 rounded-md ' key={i++}>
                         <div className='font-semibold'>
-                            {'asds'}
+                            {remedios.find((reme) => reme.value == remCad.cod_remedio).name}
                         </div>
                         <div className='flex-row space-x-4 font-light text-gray-500'>
                             <div className="inline-block">{remCad.duracao}   </div>

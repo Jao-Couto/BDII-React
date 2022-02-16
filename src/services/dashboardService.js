@@ -92,6 +92,36 @@ class DashboardService {
         })
     }
 
+    async totalAtendimentosAndamento() {
+        return axios({
+            url: "http://localhost:5000/dash/total_atendimentos_andamento/",
+            method: "GET",
+            timeout: 5000,
+            header: {
+                Accept: 'application/json'
+            }
+        }).then((response) => {
+            return Promise.resolve(response.data[0].total_andamento)
+        }).catch((error) => {
+            return Promise.reject(error)
+        })
+    }
+
+    async totalAtendimentosEspera() {
+        return axios({
+            url: "http://localhost:5000/dash/total_atendimentos_espera/",
+            method: "GET",
+            timeout: 5000,
+            header: {
+                Accept: 'application/json'
+            }
+        }).then((response) => {
+            return Promise.resolve(response.data[0].total_espera)
+        }).catch((error) => {
+            return Promise.reject(error)
+        })
+    }
+
     async totalGastosSalario() {
         return axios({
             url: "http://localhost:5000/dash/total_salario/",

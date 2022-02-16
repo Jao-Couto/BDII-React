@@ -5,6 +5,7 @@ import { FaSearch } from 'react-icons/fa'
 import atendimentosService from "../services/atendimentosService";
 import Modal from "./Modal";
 import DetalheHistorico from "./DetalheHistorico";
+import { log } from "@craco/craco/lib/logger";
 
 export default function HistoricoAtendimentos() {
     const [atendimentos, setAtendimentos] = useState([]);
@@ -20,13 +21,9 @@ export default function HistoricoAtendimentos() {
     const [codigoMa, setCodigoMa] = useState('')
 
     useEffect(() => {
-        let date = moment().format('YYYY-MM-DD');
-        setDataIni(date);
-        setDataFim(date);
         atendimentosService.listarAtendimentosHistorico()
             .then((result) => {
                 setAtendimentos(result.data)
-                console.log(result.data);
             })
             .catch((error) => console.log(error))
 
@@ -55,6 +52,9 @@ export default function HistoricoAtendimentos() {
 
         ])
 
+        let date = moment().format('YYYY-MM-DD');
+        setDataIni(date);
+        setDataFim(date);
     }, [])
 
     useEffect(() => {
@@ -76,7 +76,7 @@ export default function HistoricoAtendimentos() {
             return aux;
         }, [])
         setAtendimentosSorted(searchResult)
-    }, [dataIni, dataFim, nomeMedico, nomePaciente])
+    }, [dataIni, dataFim, nomeMedico, nomePaciente, atendimentos])
 
     const handleChange = (rowData) => {
         setAtendimentoSelected(rowData.cod_atendimento)

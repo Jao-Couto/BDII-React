@@ -15,7 +15,9 @@ export default function Dashboard(props) {
     const [graphData3, setGraphData3] = useState();
     const [graphData4, setGraphData4] = useState();
     const [totalPacientes, setTotalPacientes] = useState(0);
-    const [totalAtendimentos, setTotalAtendimentos] = useState(0);
+    const [totalAtendimentosConcluidos, setTotalAtendimentosConcluidos] = useState(0);
+    const [totalAtendimentosAndamento, setTotalAtendimentosAndamento] = useState(0);
+    const [totalAtendimentosEspera, setTotalAtendimentosEspera] = useState(0);
     const [totalSalarios, setTotalSalarios] = useState(0);
 
     useEffect(() => {
@@ -24,7 +26,9 @@ export default function Dashboard(props) {
         dashboardService.dadosDasUrgencias().then(result => setGraphData3(result.data));
         dashboardService.dadosDasEspecializacoes().then(result => setGraphData4(result.data));
         dashboardService.totalPacientes().then(result => setTotalPacientes(result));
-        dashboardService.totalAtendimentosConcluidos().then(result => setTotalAtendimentos(result));
+        dashboardService.totalAtendimentosConcluidos().then(result => setTotalAtendimentosConcluidos(result));
+        dashboardService.totalAtendimentosAndamento().then(result => setTotalAtendimentosAndamento(result));
+        dashboardService.totalAtendimentosEspera().then(result => setTotalAtendimentosEspera(result));
         dashboardService.totalGastosSalario().then(result => setTotalSalarios(result));
     }, [])
 
@@ -98,11 +102,12 @@ export default function Dashboard(props) {
                     </Link>
                 </div>
                 <aside className="h-full w-64 bg-white overflow-auto">
-                    {cardData('Esse é o total de pacientes que temos cadastrados', totalPacientes)}
-                    {cardData('Essa é a somatória de atendimentos concluidos', totalAtendimentos)}
-                    {cardData('Esse é o nosso investimento em salarios', `R$ ${totalSalarios}`, 'text-4xl')}
-                    {cardData()}
-                    {cardData()}
+                    {cardData('Pacientes cadastrados', totalPacientes)}
+                    {cardData('Atendimentos em espera', totalAtendimentosEspera)}
+                    {cardData('Atendimentos em andamento', totalAtendimentosAndamento)}
+                    {cardData('Atendimentos concluidos', totalAtendimentosConcluidos)}
+                    {cardData('Investimento em salarios', `R$ ${totalSalarios}`, 'text-4xl')}
+
                 </aside>
                 <main className="flex h-full w-full justify-center items-center flex-wrap p-24">
                     {drawGraphRadar(graphData3)}
