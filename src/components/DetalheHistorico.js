@@ -9,7 +9,6 @@ export default function DetalheHistorico(props) {
     const [dados, setDados] = useState([]);
     const [columns, setColumns] = useState([]);
 
-    console.log("atedddd" + props.atendimento);
     useEffect(() => {
         setColumns([
             {

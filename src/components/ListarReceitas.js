@@ -12,11 +12,9 @@ export default function ListarReceitas(props) {
 
     useEffect(() => {
         remediosService.listarRemedios().then((res) => {
-            console.log(res.data);
             setRemedios(res.data)
         });
         receitaService.listarRemedios(props.atendimento).then((res) => {
-            console.log(res.data);
             setReceitas(res.data)
         })
 
