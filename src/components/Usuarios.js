@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import DataTable from "react-data-table-component"
 import { FaSearch } from "react-icons/fa"
 import usuariosService from "../services/UsuariosServices"
-import Dashboard from "./Dashboard"
 
 export default function Usuarios(props) {
 
@@ -113,7 +112,7 @@ export default function Usuarios(props) {
 
     if (type === 'atendentes') {
         return (
-            <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
+            <div className="bg-white flex flex-col h-full justify-center items-center w-10/12">
                 <h1 className="text-center text-2xl">Atendentes</h1>
                 <div className='w-1/2 relative justify-center'>
                     <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome' />
@@ -137,7 +136,6 @@ export default function Usuarios(props) {
         return (
             <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
                 <h1 className="text-center text-2xl">Médicos</h1>
-                <Dashboard dados={dados} tipo="medico" />
                 <div className='w-full relative justify-center'>
                     <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome' />
                     <FaSearch className='absolute top-7 left-3' size='24px' />

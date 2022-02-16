@@ -24,6 +24,7 @@ import Usuarios from "./components/Usuarios";
 import Remedios from "./components/Remedios";
 import PlanosDeSaude from "./components/PlanosDeSaude";
 import HistoricoAtendimentos from "./components/HistoricoAtendimentos";
+import Dashboard from "./components/Dashboard";
 
 function App() {
 
@@ -57,9 +58,9 @@ function App() {
 
 
   return (
-    <div className="flex flex-col items-center h-screen ">
+    <div className="flex flex-col items-center h-screen">
       <Router>
-        <div className="flex flex-row p-3 w-full justify-between">
+        <div className="flex flex-row p-3 w-full justify-between border-b bg">
 
           {isLogin ? (<>
             <div className="w-full flex flex-wrap">
@@ -96,6 +97,9 @@ function App() {
                       { name: "Paciente", route: "/cadastrar/paciente", icon: <FaUserInjured size="18" /> }
                     ]}
                   />
+                  <Link to="/dashboard" style={{ textDecoration: "none" }}>
+                    <Button name="Dashboard" icon={<FaClipboardList size="24" />} id="dash" styles="min-w-navbar-btn" />
+                  </Link>
                   <DropdownMenu
                     id="usuarios"
                     name="Usuarios"
@@ -200,6 +204,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/usuarios/pacientes">
               <Usuarios type='pacientes' />
+            </PrivateRoute>
+            <PrivateRoute path="/dashboard">
+              <Dashboard />
             </PrivateRoute>
             <PrivateRoute path="/">
               <Atendimentos isAtendente={isAtendente} />
