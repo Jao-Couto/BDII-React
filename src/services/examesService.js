@@ -38,6 +38,7 @@ class ExamesService {
     }
 
     async listarExamesSolicitados(data) {
+        console.log("entrou" + data);
         return axios({
             url: "http://localhost:5000/exames/listarExamesSolicitados/" + data,
             method: "GET",

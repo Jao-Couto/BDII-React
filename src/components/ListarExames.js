@@ -7,6 +7,7 @@ export default function ListarExames(props) {
     const [exames, setExames] = useState([])
 
     useEffect(() => {
+        console.log("atend" + props.atendimento);
         examesService.listarExamesSolicitados(props.atendimento)
             .then(response => {
                 let dados = response.data;

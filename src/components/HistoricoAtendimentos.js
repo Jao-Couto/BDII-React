@@ -1,8 +1,10 @@
 import moment from "moment";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaSearch } from 'react-icons/fa'
 import atendimentosService from "../services/atendimentosService";
+import Modal from "./Modal";
+import DetalheHistorico from "./DetalheHistorico";
 
 export default function HistoricoAtendimentos() {
     const [atendimentos, setAtendimentos] = useState([]);
@@ -11,13 +13,21 @@ export default function HistoricoAtendimentos() {
     const [isSearchAtendimentos, setIsSearchAtendimentos] = useState(false);
     const [dataIni, setDataIni] = useState('')
     const [dataFim, setDataFim] = useState('')
+    const [nomeMedico, setNomeMedico] = useState('')
+    const [nomePaciente, setNomePaciente] = useState('')
+    const [modalDetalhes, setModalDetalhes] = useState(false);
+    const [atendimentoSelected, setAtendimentoSelected] = useState('')
+    const [codigoMa, setCodigoMa] = useState('')
 
     useEffect(() => {
         let date = moment().format('YYYY-MM-DD');
         setDataIni(date);
         setDataFim(date);
         atendimentosService.listarAtendimentosHistorico()
-            .then((result) => setAtendimentos(result.data))
+            .then((result) => {
+                setAtendimentos(result.data)
+                console.log(result.data);
+            })
             .catch((error) => console.log(error))
 
         setColumnAtendimentos([
@@ -51,32 +61,36 @@ export default function HistoricoAtendimentos() {
         setIsSearchAtendimentos(true)
         let searchResult = atendimentos.reduce((aux, data) => {
             let format = data.data_hora.substring(6, 10) + '-' + data.data_hora.substring(3, 5) + '-' + data.data_hora.substring(0, 2)
-            if (format >= dataIni && format <= dataFim)
+            let ifMedico = ''
+            let ifPaciente = ''
+            if (nomeMedico != '')
+                ifMedico = data.nome_medico.toLowerCase().includes(nomeMedico.toLowerCase())
+            else
+                ifMedico = true;
+            if (nomePaciente != '')
+                ifPaciente = data.nome_paciente.toLowerCase().includes(nomePaciente.toLowerCase())
+            else
+                ifPaciente = true;
+            if (format >= dataIni && format <= dataFim && ifMedico && ifPaciente)
                 aux.push(data);
             return aux;
         }, [])
         setAtendimentosSorted(searchResult)
-    }, [dataIni, dataFim])
+    }, [dataIni, dataFim, nomeMedico, nomePaciente])
 
-    const handleChange = ({ selectedRows }) => {
-        // You can set state or dispatch with something like Redux so we can use the retrieved data
-        //console.log("Selected Rows: ", selectedRows);
+    const handleChange = (rowData) => {
+        setAtendimentoSelected(rowData.cod_atendimento)
+        setCodigoMa(atendimentos.find((atend) => atend.cod_atendimento == rowData.cod_atendimento).codigo_ma)
+        setModalDetalhes(true)
+
     };
 
-    function handleSearch(e, type) {
+    function handleChangeMedico(e) {
+        setNomeMedico(e.target.value)
+    }
 
-        let content = e.target.value;
-        if (content.length !== 0) {
-            setIsSearchAtendimentos(true)
-            let searchResult = atendimentos.reduce((aux, data) => {
-                if (data[type].toLowerCase().includes(content.toLowerCase()))
-                    aux.push(data);
-                return aux;
-            }, [])
-            setAtendimentosSorted(searchResult)
-        } else {
-            setIsSearchAtendimentos(false)
-        }
+    function handleChangePaciente(e) {
+        setNomePaciente(e.target.value)
     }
 
     function handleChangeDataIni(e) {
@@ -87,8 +101,6 @@ export default function HistoricoAtendimentos() {
         setDataFim(e.target.value)
     }
 
-    const btnStyle = "p-3 cursor-pointer rounded-md bg-green-500 text-white text-base justify-self-end"
-
     return (
         <div className="flex h-full w-11/12 justify-start text-xl max-w-7xl mt-5">
             <div className="flex flex-col w-full col-span-2">
@@ -96,12 +108,12 @@ export default function HistoricoAtendimentos() {
 
                 <div className="grid grid-cols-2 items-center ">
                     <div className='w-full relative justify-center'>
-                        <input type='search' className='w-full p-2 pl-12 border outline-none' onChange={(e)=> handleSearch(e, 'nome_medico')} placeholder='Nome do Médico' />
+                        <input type='search' className='w-full p-2 pl-12 border outline-none' onChange={handleChangeMedico} placeholder='Nome do Médico' />
                         <FaSearch className='absolute top-3 left-3' size='24px' />
                     </div>
 
                     <div className='w-full relative justify-center'>
-                        <input type='search' className='w-full p-2 pl-12 border  outline-none' onChange={(e)=> handleSearch(e, 'nome_paciente')} placeholder='Nome do Paciente' />
+                        <input type='search' className='w-full p-2 pl-12 border  outline-none' onChange={handleChangePaciente} placeholder='Nome do Paciente' />
                         <FaSearch className='absolute top-3 left-3' size='24px' />
                     </div>
                 </div>
@@ -138,6 +150,12 @@ export default function HistoricoAtendimentos() {
                     striped />
 
             </div>
+
+            {(modalDetalhes) ?
+                <Modal isOpen={modalDetalhes} handleModal={setModalDetalhes}>
+                    <DetalheHistorico atendimento={atendimentoSelected} cod_ma={codigoMa}></DetalheHistorico>
+                </Modal> : <></>}
+
         </div >
     );
 }
