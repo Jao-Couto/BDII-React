@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import DataTable from "react-data-table-component"
-import { FaSearch } from "react-icons/fa"
+import { FaSearch, FaUserAlt, FaUserInjured, FaUserMd, FaUsers } from "react-icons/fa"
 import usuariosService from "../services/UsuariosServices"
+import DropdownMenu from "./DropdownMenu"
 
 export default function Usuarios(props) {
 
@@ -113,6 +114,19 @@ export default function Usuarios(props) {
     if (type === 'atendentes') {
         return (
             <div className="bg-white flex flex-col h-full justify-center items-center w-10/12">
+                <div className="h-12 flex">
+                    <DropdownMenu
+                        id="usuarios"
+                        name="Usuarios"
+                        icon={<FaUsers size="24" />}
+                        styles="min-w-navbar-btn"
+                        options={[
+                            { name: "Atendentes", route: "/usuarios/atendentes", icon: <FaUserAlt size="18" /> },
+                            { name: "Médicos", route: "/usuarios/medicos", icon: <FaUserMd size="18" /> },
+                            { name: "Paciente", route: "/usuarios/pacientes", icon: <FaUserInjured size="18" /> }
+                        ]}
+                    />
+                </div>
                 <h1 className="text-center text-2xl">Atendentes</h1>
                 <div className='w-1/2 relative justify-center'>
                     <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome' />
@@ -132,9 +146,22 @@ export default function Usuarios(props) {
     }
 
     if (type === 'medicos') {
-        
+
         return (
             <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
+                <div className="h-12 flex">
+                    <DropdownMenu
+                        id="usuarios"
+                        name="Usuarios"
+                        icon={<FaUsers size="24" />}
+                        styles="min-w-navbar-btn"
+                        options={[
+                            { name: "Atendentes", route: "/usuarios/atendentes", icon: <FaUserAlt size="18" /> },
+                            { name: "Médicos", route: "/usuarios/medicos", icon: <FaUserMd size="18" /> },
+                            { name: "Paciente", route: "/usuarios/pacientes", icon: <FaUserInjured size="18" /> }
+                        ]}
+                    />
+                </div>
                 <h1 className="text-center text-2xl">Médicos</h1>
                 <div className='w-full relative justify-center'>
                     <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome' />
@@ -157,6 +184,19 @@ export default function Usuarios(props) {
 
         return (
             <div className="bg-white flex flex-col h-full justify-center items-centers w-10/12">
+                <div className="h-12 flex">
+                    <DropdownMenu
+                        id="usuarios"
+                        name="Usuarios"
+                        icon={<FaUsers size="24" />}
+                        styles="min-w-navbar-btn"
+                        options={[
+                            { name: "Atendentes", route: "/usuarios/atendentes", icon: <FaUserAlt size="18" /> },
+                            { name: "Médicos", route: "/usuarios/medicos", icon: <FaUserMd size="18" /> },
+                            { name: "Paciente", route: "/usuarios/pacientes", icon: <FaUserInjured size="18" /> }
+                        ]}
+                    />
+                </div>
                 <h1 className="text-center text-2xl">Pacientes</h1>
                 <div className='w-full relative justify-center'>
                     <input type='search' className='w-full p-2 pl-12 border my-5 outline-none' onChange={handleSearch} placeholder='Nome' />
